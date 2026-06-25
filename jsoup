@@ -1,0 +1,188 @@
+Kotlin: Sa se creeze in Kotlin un program care sa descarce o pagina HTML< o analizeaza cu modulul Jsoup si salveaza separat toate imaginile grafice din el. Se vor cauta tag-uri de tip ‘img’ si 
+se va extrage valoarea atributului src( sursa imaginii respective), pe baza careia poate fi descarcata imaginea cu cererea GET
+
+                                                      main:
+
+import org.jsoup.Jsoup
+import java.io.File
+import java.net.URL
+import kotlin.io.readBytes
+fun main() {
+
+    val doc = Jsoup.connect("https://commons.wikimedia.org/wiki/Category:Cats")
+        .userAgent("Mozilla/5.0")
+        .get()
+
+    var i = 0
+    val images = doc.select("img")
+
+    for (img in images) {
+
+        val url = img.absUrl("src")
+
+        // 🔥 filtrare importantă
+        if (!url.startsWith("http")) continue
+        if (url.startsWith("data:")) continue
+        if (url.endsWith(".svg")) continue
+
+        try {
+            val bytes = URL(url).openConnection().apply {
+                setRequestProperty("User-Agent", "Mozilla/5.0")
+            }.getInputStream().readBytes()
+
+            File("image_$i.jpg").writeBytes(bytes)
+            println("Saved image_$i.jpg")
+
+            i++
+
+        } catch (e: Exception) {
+            println("Skip: $url -> ${e.message}")
+        }
+    }
+}
+////VARIANTA2
+//import org.jsoup.Jsoup
+//import java.io.File
+//import java.net.URL
+//
+//fun main()
+//{
+//    val url = "https://www.geeksforgeeks.org/html-images/"
+//    val doc = Jsoup.connect(url).get()
+//    var i = 0
+//
+//    val outputDirector = File("Imagini Descarcate")
+//    if(!outputDirector.exists())
+//    {
+//        outputDirector.mkdir()
+//    }
+//
+//    for(image in doc.select("img"))
+//    {
+//        try
+//        {
+//            var imgLnk = image.attr("abs:src")
+//            println(" Dowloading: $imgLnk")
+//            val urlImg = URL(imgLnk).readBytes()
+//            val imageName = "image_$i.jpg"
+//            File(outputDirector, imageName).writeBytes(urlImg)
+//            println(" Saved: $imageName")
+//            i++
+//        }
+//        catch (e: Exception)
+//        {
+//            println(" Nu se poate descarca imaginea: ${e.message}")
+//        }
+//    }
+//}
+
+                                          xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>kotlin-jsoup-project</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <kotlin.version>1.9.24</kotlin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.0</junit.version>
+        <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>mavenCentral</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+
+        <!-- Kotlin stdlib -->
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+
+        <!-- Jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.17.2</version>
+        </dependency>
+
+        <!-- JUnit 5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test-junit5</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+
+        <plugins>
+
+            <!-- Kotlin compiler -->
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Run main -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>MainKt</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Tests -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
