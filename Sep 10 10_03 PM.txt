@@ -1,0 +1,3801 @@
+				SUBIECTE PP
+
+
+SV76
+Kotlin: Utilizand Kotlin si OOP sa se creeze un program care permite modelarea unei sali de laborator cu tot cu operatrii pentru obiecte. Se vor folosi liste mutabile. Se va desena diagrama UML(clase si obiect). Se va explica maniera de aplicare a principiilor SOLID.
+class Calculator(var rezolutie: Int, var tip: String) {
+}
+class Scaun(var culoare:String, var nrPicioare: Int) {
+}
+class Birou(var culoare: String, var inaltime:Int ) {
+}
+class Laborator(val nume:String, val capacitate:Int) {
+	private val calculatoare=mutableListOf<Calculator>()
+	private val scaune= mutableListOf<Scaun>()
+	private val birouri= mutableListOf<Birou>()
+ 
+	fun addScaun(scaun: Scaun)
+	{
+    	if(scaune.size<capacitate)
+        	scaune.add(scaun)
+    	else
+        	print("Nu mai este loc de alt scaun")
+	}
+ 
+	fun addBirou(birou: Birou)
+	{
+    	if(birouri.size<capacitate)
+        	birouri.add(birou)
+    	else
+        	print("Nu mai este loc de alt birou")
+	}
+ 
+	fun addCalculator(calculator: Calculator)
+	{
+    	if(calculatoare.size<capacitate)
+    	{
+        	calculatoare.add(calculator)
+    	}
+    	else
+        	print("\nNu mai este loc pentru alt calculator")
+	}
+ 
+	fun removeCalculator(calculator: Calculator)
+	{
+    	if(calculatoare.size>0)
+        	calculatoare.remove(calculator)
+    	else
+        	print("\n Nu mai sunt alte calculatoare ")
+	}
+ 
+	fun removeScaun(scaun: Scaun)
+	{
+    	if(scaune.size>0)
+        	scaune.remove(scaun)
+    	else
+        	print("\nNu mai sunt alte scaune")
+	}
+ 
+	fun removeBirou(birou: Birou)
+	{
+    	if(birouri.size>0)
+        	birouri.remove(birou)
+    	else
+        	print("\nNu mai sunt alte birouri")
+	}
+ 
+	fun afisare()
+	{
+    	println("Lab: $nume")
+    	println("Capacitate: $capacitate")
+    	println("Numar de calculatoare:")
+    	calculatoare.forEach{ println(" - ${it.rezolutie}: ${it.tip})")}
+    	println("Numar de scaune: ")
+    	scaune.forEach { println(" - ${it.culoare}:${it.nrPicioare}") }
+    	println("Numar de birouri: ")
+    	birouri.forEach { println(" - ${it.culoare}: ${it.inaltime}") }
+ 
+	}
+}
+import Laborator
+ 
+fun main()
+{
+	val Lab=Laborator("L1",5)
+ 
+	val calculator1=Calculator(12,"Mac")
+	val calculator2=Calculator(13,"Intel")
+	val calculator3=Calculator(22,"Dell")
+	val calculator4=Calculator(11,"Apple")
+ 
+	val calculator5=Calculator(23,"Windows")
+ 
+	val birou1=Birou("rosu",12)
+	val birou2=Birou("alb",22)
+	val birou3=Birou("negru",19)
+	val birou4=Birou("verde",44)
+	val birou5=Birou("bej",7)
+ 
+	val scaun1=Scaun("alb",3)
+	val scaun2=Scaun("alb",4)
+	val scaun3=Scaun("alb",5)
+ 
+	Lab.addBirou(birou1)
+	Lab.addBirou(birou2)
+	Lab.addBirou(birou3)
+	Lab.addBirou(birou4)
+	Lab.addBirou(birou5)
+ 
+	Lab.addScaun(scaun1)
+	Lab.addScaun(scaun2)
+	Lab.addScaun(scaun3)
+ 
+	Lab.removeCalculator(calculator1)
+ 
+	Lab.afisare()
+ 
+}
+ 
+
+
+ SV76
+Python: utilizand modelul pod pot sa se scrue un program Python care va desena in mod grafic un triunghi, un cerc si un dreptunghi. Se vor desena diagrame de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID
+ from tkinter import ttk
+from tkinter import *
+class DrawAPI:
+    def draw(self,canvas:Canvas,coords:tuple,color:str):
+        pass
+class DrawCircel(DrawAPI):
+    def draw(self,canvas:Canvas,coords:tuple,color:str):
+        canvas.create_oval(coords,fill=color,width=2)
+        canvas.pack()
+        print("desenez un cerc")
+
+class DrawPatrat(DrawAPI):
+    def draw(self,canvas:Canvas,coords:tuple,color:str):
+        canvas.create_rectangle(coords,fill=color,width=2)
+        canvas.pack()
+        print("Desenez un  patrat")
+from tkinter import *
+from DrawAPI import DrawAPI
+class Shape:
+    def __init__(self,canvas:Canvas,coords:tuple, color:str, drawAPI:DrawAPI):
+        self.canvas=canvas
+        self.coords=coords
+        self.color=color
+        self.draw_API=drawAPI
+
+    def draw(self):
+        pass
+
+from tkinter import ttk
+from tkinter import *
+from DrawAPI import DrawAPI
+from Shape import Shape
+
+
+class Circle(Shape):
+    def draw(self):
+        self.draw_API.draw(canvas=self.canvas,coords=self.coords,color=self.color)
+
+from tkinter import ttk
+from tkinter import *
+from DrawAPI import DrawAPI
+from Shape import Shape
+
+class Patrat(Shape):
+    def draw(self):
+        self.draw_API.draw(canvas=self.canvas,coords=self.coords,color=self.color)
+
+from Cerc import Circle
+from DrawAPI import DrawAPI, DrawCircel, DrawPatrat
+from Shape import Shape
+from tkinter import *
+from Patrat import Patrat
+
+
+if __name__=='__main__':
+    print("Incepe programul")
+
+    root=Tk()
+    root.geometry("300x300")
+
+    canvas=Canvas(root,width=200,height=200,bg="white",
+                  borderwidth=2)
+    coord1=10,20,30,50
+
+    cerc:Shape=Circle(canvas=canvas, coords=coord1,color="black", drawAPI=DrawCircel())
+    cerc.draw()
+
+
+
+    coord2=70,40,110,80
+    patrat:Shape=Patrat(canvas=canvas, coords=coord2,color="black", drawAPI=DrawPatrat())
+    patrat.draw()
+
+    root.mainloop()
+
+
+SV 81
+Kotlin: Utilizand modelul adaptor sa se freeze un program Kotlin care va primi la intrare diverse tipuri de date simple sau de tip colectie si va realiza scrierea lor intr-un fisier ca o singura operatie care primeste doar obiectul si nume fisier. Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+
+package com.pp.laborator
+
+//interfata target care defineste metoda comuna
+interface Target
+{
+    fun write(data:Any, fileName:String)
+
+}
+
+// adaptorul care implementeaza target si def write
+class FileWriterAdapter:Target
+{
+    override fun write(data:Any, fileName:String)
+    {
+        val file=java.io.File(fileName)
+
+        file.bufferedWriter().use { out->
+            when(data)
+            {
+                is String->out.write(data)
+                is Int ->out.write(data.toString())
+                is Double ->out.write(data.toString())
+                is List<*> ->data.forEach{
+                    out.write(it.toString()+"\n")
+                }
+                is Map<*,*>->data.forEach{
+                    it.toString()+"\n"
+                }
+                else -> out.write("Unsuported type")
+
+            }
+        }
+    }
+}
+
+
+class Client(private val adapter:Target)
+{
+    fun process(data:Any, fileName: String)
+    {
+        adapter.write(data,fileName)
+    }
+}
+
+fun main()
+{
+    val adapter=FileWriterAdapter()
+    val client=Client(adapter)
+
+    client.process("Hello","output.txt")
+    client.process(123,"output.txt")
+    client.process(listOf("apple","banana","cherry"), "output2.txt")
+
+
+
+}
+
+SV81
+Python: Utilizand modelul comanda sa se scrie in Python un program care pornind de la o clasa student va asigura posibilitatea unor comenzi specifice unui obiect colega care sa conduca la schimbarea starii interne a unui obiect student ( de ex din fericit in disperat). Se vor desena diagrama da clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+from abc import ABC, abstractmethod
+
+class Student:
+    def __init__(self,name):
+        self.name=name
+        self.state='Fericit'
+
+
+    def change_state(self, new_state):
+        print(f"{self.name} si a schimbat starea din {self.state} in {new_state}")
+        self.state=new_state
+
+#clasa command
+class Command(ABC):
+    @abstractmethod
+    def executa(self):
+        pass
+
+
+#clasa concreta de comanda
+
+class Fericit(Command):
+    def __init__(self,student):
+        self.student=student
+
+    def executa(self):
+        self.student.change_state("Fericit")
+
+class Disperat(Command):
+    def __init_(self,student):
+        self.student=student
+    def executa(self):
+        self.student.change_state("Disperat")
+
+
+
+#clasa colega
+class Colega:
+    def trimiteComanda(self,comanda):
+        comanda.executa()
+
+
+if __name__=="__main__":
+    student=Student("Ion")
+    colega=Colega()
+
+    comandaFericit=Fericit(student)
+
+    #comandaDisperat=Disperat()
+
+    colega.trimiteComanda(comandaFericit)
+    #colega.trimiteComanda(comandaDisperat)
+
+
+
+SV 86
+Kotlin: Utilizand modelul observtor sa se creeze in pentru un obiect de tip recalculare a pretului, in functie de niste rate de reducere introduse extern de la tastatura ( prin intermediul unui model proxy cu validare de user, parola), un logger (scriere automata in jurnal a operatiilor), care va scrie intr-un fisier separat user si data la care a fost efectuata modificarea de pret si ce modificare a fost realizata) Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID. 
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+
+interface Observer {
+    fun update(pret: Double)
+}
+
+class Pret( private var valoare: Double){
+    fun modificarePret(rateDeReducere: Double){
+        valoare -= valoare * rateDeReducere/100
+    }
+
+    fun getPret(): Double {
+        return valoare
+
+    }
+}
+
+//recalculare pret
+class RecalcularePret(private val pret: Pret){
+    private val observers: MutableList<Observer> = mutableListOf()
+
+    fun attach(observer : Observer){
+        observers.add(observer)
+    }
+    fun detach(observer: Observer){
+        observers.remove(observer)
+    }
+
+    fun notifyObservers() {
+        for ( observer in observers) {
+            observer.update(pret.getPret())
+        }
+    }
+
+    fun recalcularePret( rateDeReducere: Double){
+        pret.modificarePret(rateDeReducere)
+        notifyObservers()
+    }
+}
+
+//clasa LOGGER (observer)
+
+class Logger( private val user : String): Observer {
+    private val fisierLog = "lok.txt"
+
+    override fun update(pret: Double) {
+        val data = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+        scrieInLoG(user, data, "Pretul a fost modificat la $pret")
+    }
+
+    private fun scrieInLoG(user: String, data: String, modificare: String) {
+        File(fisierLog).appendText("[$data] $user: $modificare\n")
+    }
+}
+
+//user proxy
+class UserProxy( private val realSubject: RecalcularePret, private val user: String, private val parola: String){
+    private val userDb = mapOf("admin" to "admin123")
+
+    private fun validate(): Boolean {
+        return userDb[user] == parola
+    }
+
+    fun recalculeazaPret( rateDeReducere: Double) {
+        if( validate()){
+            realSubject.recalcularePret(rateDeReducere)
+        }
+        else{
+            println("Autentificare esuata1 acces refuzat!")
+        }
+    }
+}
+
+//clasa rate de reducere
+class RateDereducere {
+    fun introduceRate(): Double {
+        println("Introduceti rata de reducere (%): ")
+        return readLine()?.toDoubleOrNull() ?: 0.0
+    }
+}
+
+fun main(){
+    val pretInitial = 100.0
+    val pret = Pret(pretInitial)
+    val recalcularePret = RecalcularePret(pret)
+
+    println(" introduceti user: ")
+    val user = readLine() ?: ""
+    println("introduceti parola: ")
+    val parola = readLine() ?: ""
+
+    val logger = Logger(user)
+    recalcularePret.attach(logger)
+
+    val proxy = UserProxy(recalcularePret, user, parola)
+    val rateDeReducere = RateDereducere()
+    val rate = rateDeReducere.introduceRate()
+    proxy.recalculeazaPret(rate)
+}
+
+SV86
+
+Python: Utilizand fabrica de fabrici sa se creeze un program Python care in functie de limba selectata in apel sa intoarca un buton a carui eticheta sa fie in limba selectata la apel si apoi sa fie afisat pe ecran utilizand tkinter. Se vor desena diagrama de clase si de obiecte. Se va explica maniera SOLID.
+
+#clasa de baza pentru buton in general de alegere a limbii
+
+from tkinter import ttk
+
+class LanguageButton(ttk.Button):
+    def setLanguage(self,language:str):
+        pass
+
+from abc import ABC, abstractmethod
+
+from LanguageButton import LanguageButton
+
+
+class AbstractFactory(ABC):
+    @abstractmethod
+    def getButton(self,language:str)->LanguageButton:
+        pass
+
+from LanguageButton import LanguageButton
+
+class English(LanguageButton):
+    def setLanguage(self,language:str):
+        self.config(text='English')
+
+from LanguageButton import LanguageButton
+
+class Romanian(LanguageButton):
+    def setLanguage(self):
+        self.config(text="Romanian")
+
+
+
+
+from LanguageButton import LanguageButton
+
+class French(LanguageButton):
+    def setLanguage(self,language:str):
+        self.config(text="French")
+
+
+from distutils.command.build import build
+
+from AbstractFactory import AbstractFactory
+from French import French
+from Romanian import Romanian
+from main import LanguageButton
+
+
+class LatinFactory(AbstractFactory):
+    button:LanguageButton
+
+    def getButton(self,language:str) ->LanguageButton:
+        if(language=="French"):
+            button=French()
+            return button
+        elif(language=="Romanian"):
+            button=Romanian()
+            return  button
+
+from AbstractFactory import AbstractFactory
+from English import English
+from main import LanguageButton
+
+
+class GermanFactory(AbstractFactory):
+    button: LanguageButton
+
+    def getButton(self,language:str) ->LanguageButton:
+        if(language=="English"):
+            button=English()
+            return button
+        else:
+            return None
+
+
+
+
+from AbstractFactory import AbstractFactory
+from GermanFactory import GermanFactory
+from LatinFactory import LatinFactory
+
+class FactoryFactory:
+    def getFactory(self, factoryName:str)->AbstractFactory:
+        if(factoryName=="wg"):
+            return GermanFactory()
+        elif(factoryName=="l"):
+            return LatinFactory()
+
+
+from tkinter import ttk
+
+from tkinter import *
+
+import FactoryFactory
+from LanguageButton import LanguageButton
+
+
+
+if __name__=="__main__":
+    print("Incepe programul")
+
+    root=Tk()
+    root.geometry("330x100")
+
+    factory_factory= FactoryFactory.FactoryFactory()
+
+    latin_fact=factory_factory.getFactory("l")
+    wg_factory=factory_factory.getFactory("wg")
+
+    b:LanguageButton=latin_fact.getButton("Romanian")
+    b.setLanguage()
+    b.pack()
+
+    b_wg:LanguageButton=wg_factory.getButton("English")
+    b_wg.setLanguage("English")
+    b_wg.pack()
+
+    root.mainloop()
+
+
+
+
+
+SV 88
+Kotlin: Sa se creeze un program Kotlin care va utiliza subclase active ( cu mutex si lock) pentru procesarea simultana a unui hasmap bazata. Clsa de baza va stabili operatiile ( de ex adunare, scadere, inmultire sau impartire) iar subclasele vor pune la dispozitie obiecte care se executa in fire separate. Se va prezenta diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+package com.pp.laborator
+import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+
+//clasa de baza hashMap
+sealed class HashMapOp (public var hashMap:HashMap<Int,Int>){
+    fun sum():Int
+    {
+        var sum:Int=0;
+        hashMap.forEach{
+            sum+=it.value
+        }
+        return sum
+    }
+
+    fun mul():Int
+    {
+        var mul:Int=1
+        hashMap.forEach{
+            mul*=it.value
+        }
+        return mul
+    }
+
+}
+
+
+
+
+
+class RunOp(hashmap: HashMap<Int, Int>, public var option:Int):HashMapOp(hashmap)
+{
+    var rezultat:Int=0
+    var mutex=Mutex()
+    var counterContex= newSingleThreadContext("CounterContext")
+    suspend fun runOperation()= runBlocking {
+        withContext(counterContex)
+        {
+            mutex.withLock{
+                if(option==1)
+                    rezultat=sum()
+                else if(option==2)
+                    rezultat=mul()
+            }
+        }
+    }
+
+}
+
+
+import com.pp.laborator.RunOp
+import kotlinx.coroutines.runBlocking
+
+
+fun main(args: Array<String>)= runBlocking {
+    println("Incepe programul")
+
+    var operationHasMap1= RunOp(hashMapOf(Pair(1,1), Pair(2,3),Pair(3,3),Pair(4,4)),1)
+    var operationHasMap2= RunOp(hashMapOf(Pair(1,1), Pair(2,3),Pair(3,3),Pair(4,4)),2)
+
+    operationHasMap1.runOperation()
+    operationHasMap2.runOperation()
+
+    println(operationHasMap1.rezultat)
+    println(operationHasMap2.rezultat)
+
+}
+
+
+
+SV88
+
+
+Python: Utilizand fabrica de fabrici sa se creeze un program Python care va afisa in functie de apel in mod graficc un patrat un dreptunghi sau un cerc. Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+from tkinter import *
+
+#clasa de baza
+#SHAPE
+class Shape:
+    canvas: Canvas
+    color:str
+
+    #fct de implementat pentru desenare
+    def draw(self):
+        pass
+
+
+    #fct de implementat pentru a seta culoarea si dim
+    def set(self, canvas:Canvas, color:str, width:int):
+        pass
+
+    #fct pentru coordonate
+    def setCoords(self, coords:tuple):
+        pass
+
+from tkinter import Tk, Canvas
+from Shape import Shape
+
+#CERC
+class Cerc(Shape):
+
+    def set(self, canvas: Canvas, color: str, width: int):
+        self.canvas = canvas
+        self.color = color
+        self.width = width
+
+    def setCoords(self, coords: tuple):
+        self.coords = coords
+
+    def draw(self):
+        print("Am desenat un cerc")
+        self.canvas.create_oval(self.coords, fill=self.color, width=self.width)
+        self.canvas.pack()
+
+#DREPTUNGHI
+from tkinter import Canvas, Tk
+from Shape import Shape
+
+class Dreptunghi(Shape):
+    def set(self,canvas:Canvas,color:str,width:int):
+        self.canvas=canvas
+        self.color=color
+        self.width=width
+
+    def setCoords(self, coords:tuple):
+        self.coords=coords
+
+    def draw(self):
+        print("Desenez un dreptunghi")
+        self.canvas.create_rectangle(self.coords,fill=self.color, width=self.width)
+        self.canvas.pack()
+
+
+#PATRAT
+from tkinter import Canvas, Tk
+
+from Shape import Shape
+
+class Patrat(Shape):
+    def set(self, canvas:Canvas, color:str, width:int):
+        self.canvas=canvas
+        self.color=color
+        self.width=width
+
+    def setCoords(self, coords:tuple):
+        self.coords=coords
+
+    def draw(self):
+        print("Desenam un patrat")
+        self.canvas.create_rectangle(self.coords[0],self.coords[0],self.coords[1],self.coords[1],
+                                     fill=self.color,width=self.width)
+        self.canvas.pack()
+
+#ABSTRACT FACTORY
+from abc import ABC, abstractmethod
+
+from Shape import Shape
+
+class AbstractFactory(ABC):
+    @abstractmethod
+    def getShape(self, forma: str) ->Shape:
+        pass
+
+
+#OVALFACTORY
+from AbstractFactory import AbstractFactory
+
+from Cerc import Cerc
+
+from Shape import Shape
+
+class OvalFactory(AbstractFactory):
+    def getShape(self, forma: str) ->Shape:
+        if forma=="oval":
+            forma=Cerc()
+        return forma
+
+
+
+
+from AbstractFactory import AbstractFactory
+from Dreptunghi import Dreptunghi
+from Patrat import Patrat
+from Shape import Shape
+#POLYFACTORY
+class PolyFactory(AbstractFactory):
+    def getShape(self, forma: str) ->Shape:
+        forma:Shape
+        if(forma=="patrat"):
+            forma=Patrat()
+            return forma
+        else:
+            if forma=="dreptunghi":
+                forma=Dreptunghi()
+                return forma
+
+
+#factoryfactory
+from AbstractFactory import AbstractFactory
+
+from OvalFactory import OvalFactory
+from PolyFactory import PolyFactory
+
+class FactoryProducer:
+    def getFactory(self,name:str)->AbstractFactory:
+        if(name=='oval'):
+            return OvalFactory()
+        elif(name=="Poly"):
+            return PolyFactory()
+
+
+#MAIN
+from tkinter import *
+from tkinter import ttk
+
+from AbstractFactory import AbstractFactory
+from OvalFactory import OvalFactory
+from Shape import Shape
+from Cerc import Cerc
+from Dreptunghi import Dreptunghi
+from Patrat import Patrat
+from PolyFactory import PolyFactory
+from FactoryProducer import FactoryProducer
+
+if __name__=="__main__":
+    print("Incepe programul")
+
+    root=Tk()
+    C=Canvas(root,bg="white",height=250,width=300)
+
+    factoryProducer=FactoryProducer()
+    ovalFactory:AbstractFactory=factoryProducer.getFactory("Oval")
+    polyFactory:AbstractFactory=factoryProducer.getFactory("Poly")
+
+    coordPatrat=10,100
+    
+    coord=220,10,310,20
+
+    coord2=220,50,330,70
+
+    patrat:Shape=polyFactory.getShape("patrat")
+    patrat.set(C,'red',2)
+    patrat.setCoords(coordPatrat)
+    patrat.draw()
+
+
+    #oval:Shape=OvalFactory.getShape("oval")
+    #oval.set(C,"blue",2)
+    #oval.setCoords(coord2)
+    #oval.draw()
+    root.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+SV 107
+Kotlin: Sa se scrie un program Kotlin care va crea echivalentul unei bariere ( si apoi va utiliza intr-un exemplu simplu de genul sume de valori dintr-un hasmap realizate pe mai multe fire Java.) Implementarea acestei bariere se va baza pe fire java ( apelate din programul Kotlin) si pe mecanismele wait, notify si notify all.
+package com.pp.laborator
+import java.util.*
+class Bariera (private val nrMaxFire: Int){
+    private var lock = java.lang.Object()
+    @Volatile private var nrFire: Int=0
+
+    fun await()= synchronized(lock)
+    {
+        nrFire++
+
+        while(nrFire<nrMaxFire)
+        {
+            Thread.sleep(1000)
+            lock.wait()
+        }
+
+        lock.notifyAll()
+    }
+
+}
+
+
+class MyThread(private val nume: String, private val cb:Bariera,private val mutableIterable: MutableIterable<Int>,public var sum:Int, public var dim:Int, public var parte:Int) :Runnable
+{
+    override fun run()
+    {
+        val lista=mutableIterable.chunked(dim)
+
+        sum=lista[parte].sum()
+        println("Sunt in ${Thread.currentThread().name} si sunt activ")
+        this.cb.await()
+
+    }}
+package com.pp.laborator
+
+fun main() {
+    println("Inceputul programului!")
+    val bariera: Bariera=Bariera(3)
+    val lista = mutableListOf<Int>(10,20,30,40,50,60,70)
+
+    var suma: Int=0
+
+    var mt1 = MyThread("thread1", bariera, lista, suma, 3, 1)
+    var mt2 = MyThread("thread2", bariera, lista, suma, 3, 2)
+    var mt3 = MyThread("thread3", bariera, lista, suma, 3, 2)
+    val t1: Thread = Thread(mt1)
+    val t2: Thread = Thread(mt2)
+    val t3: Thread = Thread(mt3)
+
+    t1.start()
+    t2.start()
+    t3.start()
+
+    t1.join()
+    t2.join()
+    t3.join()
+
+    var finalsum = mt1.sum + mt2.sum + mt3.sum
+    println(finalsum)
+}
+
+SV 107
+Python: Utilizand modelul fatada  in cadrul unui program Pyhton sa se creeze un obiect de tip boombox( acesta este compus din metode specifice: play, record, fast foreard, rewind, record, radio, volume, batery status, etc). Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID. 
+
+# RecordsMemory:
+class RecordsMemory:
+    fisier: str="memory.txt"
+
+    def save(self,stringStarted, stringStopped):
+        try:
+            f=open(self.fisier,"a")
+            f.write(stringStarted + " " + stringStopped)
+            f.close()
+        except FileExistsError:
+            print("Nu am gasit fisierul")
+        finally:
+            print("Am salvat inregistrarea in memorie")
+
+#SOUND
+class Sound:
+    maxSound: int
+    volum : int
+
+    def __init__(self, maxsound:int):
+        self.maxSound=maxsound or 20
+
+    def set_volume(self,volum):
+        self.volum=volum
+
+#VIDEO
+from Sound import Sound
+class Video:
+    volum:Sound
+    speed:float
+
+    def __init__(self):
+        self.volum=Sound(10)
+        self.speed=1
+
+    def volume(self,volum:int):
+        set.volum.set_volume(volum)
+
+    def fastFW(self,viteza:float):
+        print("S a setat viteza "+ str(viteza))
+        self.speed=viteza
+
+    def play(self):
+        print("Videoclipul merge")
+#SCREEN RECORD
+from datetime import datetime
+from RecordsMemory import RecordsMemory
+
+class ScreenRecord:
+    memorie:str
+    stringStart:str
+    stringStop:str
+
+    def __init__(self, maxTime:int, recording:bool):
+        self.maxTime=maxTime
+        self.recording=recording
+        self.memorie=RecordsMemory()
+
+    def record(self):
+        print("Am inceput inregistrarea")
+        contorSec: int=0
+        self.recording =True
+        self.stringStart="recording started at"+str(datetime.now())
+        print(self.stringStart)
+        while(contorSec<self.maxTime):
+            contorSec=contorSec+1
+        self.stringStop="Recording stop at "+str(datetime.now())
+
+        print(self.stringStop)
+        self.recording=False
+
+    def saveRecord(self):
+        self.memorie.save(self.stringStart,self.stringStop)
+
+#BOMBOX
+from ScreenRecord import ScreenRecord
+from Video import Video
+
+class Boombox:
+    screenRecord: ScreenRecord
+    video:Video
+
+    def __init__(self):
+        self.screenRecord=ScreenRecord(10,False)
+        self.video=Video()
+
+    def play(self):
+        self.video.play()
+
+    def record(self):
+        self.screenRecord.record()
+
+    def save(self):
+        self.screenRecord.saveRecord()
+
+    def fastFW(self,viteza:float):
+        self.video.fastFW(viteza)
+
+    def volume(self, my_volum:int):
+        self.video.volume(my_volum)
+
+#MAIN
+from Boombox import Boombox
+if __name__=="__main__":
+    print("Programul incepe")
+
+    box=Boombox()
+
+    box.record()
+    box.save()
+   # box.volume(3)
+    box.play()
+    box.fastFW(2.5)
+
+
+
+
+
+
+
+
+
+SV108
+Kotlin: Sa se realizeze un program Kotlin care va aplcia memoizarea generalizata pentru calculul f(i) = f(i -1) + f( i - 2) utilizand concurent hasmap
+
+package com.pp.laborator
+import java.util.concurrent.ConcurrentHashMap
+
+val cache=ConcurrentHashMap<Int,Int>()
+
+fun fibbonacci(n:Int):Int= cache.getOrPut(n)
+{
+    when(n)
+    {
+        1,0 -> 1
+        else -> fibbonacci(n-1)+ fibbonacci(n-2)
+    }
+}
+
+fun main() {
+    println(fibbonacci(6))
+}
+
+
+Sv108
+Python: Utilizand modelul lant de responsabilitati si nivelul de alerta [0..5] sa se creeze un program Python care va distribui un mesaj( primit la intrare impreuna cu nivelul lui) pentru a fi tratat(afisat) in zona potrivita ( e.g 5-paznici muzee, 4-politie, 3-sri, 2-sie, 1-csat, 0-nato). Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+#lant de responsabilitati
+import self
+class Handler:
+    def __init__(self,next):    #constructor
+        self.nextHandler=next
+
+    def process(self,messages,next):    #fct de procesare a cererii care va fi suprascrisa de fiecare handler
+        pass
+
+#handler pentru Gardianul muzeului
+class GardianHndler(Handler):
+    def process(self, message:str, level:int):
+        print("Cererea a fost inregistarta->", message)
+
+        if(level==5):
+            print("Gardianul muzeului a procesat cererea!",message)
+        else:
+            if(self.nextHandler!=None):
+                print("Gardianul a pasat cererea")
+                self.nextHandler.process(message.level)
+
+#handler pentru politie
+class Police(Handler):
+    def process(self,message:str,level:int):
+        if(level==4):
+            print("Politia a procesar cererea!", message)
+        else:
+            if(self.nextHandler!=None):
+                print("Politia a pasat cererea")
+                self.nextHandler.process(message,level)
+
+
+#handler pentru SRI
+class SRIHandler(Handler):
+    def process(self,message:str,level:int):
+        if(level==3):
+            print("SRI a procesat cererea!", message)
+        else:
+            if(self.nextHandler!=None):
+                print("SRI a pasat cererea!")
+                self.nextHandler.process(message,level)
+
+#handler pentru sie
+class SIEHandler(Handler):
+    def process(self,message:str,level:int):
+        if(level==2):
+            print("SIE  a procesat cererea", message)
+        else:
+            if self.nextHandler!=None:
+                print("SIE a pasat cererea")
+                self.nextHandler.process(message,level)
+
+#handler pentru CSAT
+class CSATHnadler(Handler):
+    def process(self,message:str,level:int):
+        if(level==1):
+            print("CSAT a procesat cererea", message)
+        else:
+            if self.nextHandler!=None:
+                print("CSAT a pasat cererea!")
+                self.nextHandler.process(message,level)
+
+#handler pentru NATO
+class NATOHandler(Handler):
+    def process(self,message:str,level:int):
+        if(level==0):
+            print("NATO a procesa cererea!", message)
+        else:
+            print("NATO nu poate rezolva, Cerere invalida!")
+
+
+if __name__=="__main__":
+    ap1=NATOHandler(None)
+    ap2=CSATHnadler(ap1)
+    ap3=SIEHandler(ap2)
+    ap4=SRIHandler(ap3)
+    ap5=CSATHnadler(ap4)
+    ap5.process("Atac cu mitraliere", 0)
+    ap3.process("Atac armat",2)
+
+
+
+
+
+
+
+
+SV 53
+Kotlin: Fie doua colectii cu 100 de numere din submultimile A ={ z N | x =8n - 182n - 9, n  N }  si     B ={ z N | x =9n 2 - 48n + 183n  - 8, n  N }  . Pentru acestea se vor calcula (crea program in Kotlin) utilizand functii de transformare specifice si lambda calcul urmatoarele operatii (AxB)  (B  A) unde  A x B = ((a,b( | a  A   b  B }. Rezultatul este depus intr-un hashmap si acesta va fi afisat
+import kotlin.random.Random
+//FUNCTIE PENTRU GENERAREA COLECTIEI A
+fun generateCollectionA(size:Int):Set<Int>
+{
+    val collection= mutableSetOf<Int>()
+    var random= Random.Default
+
+    while(collection.size<size)
+    {
+        var n=random.nextInt(1,1000)
+        val numarator=8*n-18
+        val numitor=2*n-9
+
+        if(numitor!=0 && numitor >0)
+        {
+            val valoare=numarator/numitor
+            collection.add(valoare)
+        }
+    }
+    return collection
+}
+
+//FUNCTIE PENTRU GENERAREA COLECTIEI B
+fun generateCollectionB(size:Int):Set<Int>
+{
+    val collection= mutableSetOf<Int>()
+    val random=Random.Default
+
+    while(collection.size<size)
+    {
+        var n=random.nextInt(1,1000)
+        val numarator=9*n*n -48*n+16
+        val numitor=3*n-8
+
+        if(numitor!=0 && numitor>0)
+        {
+            val valoare=numarator/numitor
+            collection.add(valoare)
+        }
+    }
+    return collection
+}
+
+//FUNCTIE PENTRU PRODUS CARTEZIAN
+
+fun <A,B> produsCartezian(setA: Set<A>, setB:Set<B>):Set<Pair<A,B>>
+{
+    return setA.flatMap { a->
+        setB.map{ b->
+            Pair(a,b)
+        }
+    }.toSet()
+}
+
+//INTERSECTIE
+fun <T> intersectie(setA:Set<T>, setB:Set<T>):Set<T>
+{
+    return setA.intersect(setB)
+}
+
+//MAIN
+fun main() {
+   val size=3
+    val A= generateCollectionA(size)
+    val B= generateCollectionB(size)
+
+    val prodCartezian= produsCartezian(A,B)
+    val inters= intersectie(A,B)
+
+    var rezultat= hashSetOf<Any>().apply {
+        addAll(prodCartezian)
+        addAll(inters)
+    }
+    print(rezultat)
+}
+
+
+SV 53
+Python: Sa se scrie un program Python ( utilizand threading) care proceseaza simultan utilizand mai multe thread-uri un hashmap X si un dictionar Y cu formula f(x, y) =(x*yi+yi+1) iar rezultatul este depus in yi. Dictionarul are pereche de valoare si index i. Se va utiliza rlock()
+RLock (Reentrant Lock) este un mecanism de sincronizare în Python, folosit pentru a gestiona accesul concurent la resurse partajate, cum ar fi variabile, liste sau dicționare, în contexte multithreading. Spre deosebire de un Lock simplu, un RLock permite unui thread să obțină același "lock" de mai multe ori fără a provoca un blocaj (deadlock).
+
+import threading
+
+#DICTIONARUL SI HASHMAP 
+Y={0:10,1:20,2:30,3:40}
+X={0:1,1:2,2:3,3:4}
+
+#initializare Rlock
+lock=threading.RLock()
+
+#FUNCTIE PENTRU PROCESAREA FORMULEI
+def formula(X,Y,i):
+    with lock:
+        if i <len(Y)-1:
+            Y[i]=X[i]*Y[i]+Y[i+1]
+        else:
+            Y[i]=X[i]+Y[i]  #pentru ultimul element
+
+
+#FUNCTIE PENTRU THREADURI=>run
+def run(X,Y):
+    threads=[]
+    for i in range(len(Y)):
+        thread=threading.Thread(target=formula,args=(X,Y,i))
+        threads.append(thread)
+        thread.start()
+
+    #asteptam incheirea tututror threadurilor
+    for thread in threads:
+        thread.join()
+
+#MAIN
+if __name__=="__main__":
+    run(X, Y)
+    print(Y)
+
+
+SV 47
+Kotlin: Pornind de la doua multimi A si B care contin 20 de elemente depuse iin doua colecti separata si tinand cont de A x B= {(a,b) | a  A  b  B} ,  sa se scrie un program Kotlin care va calcula (A x B)  ( B x A) utilizand functii specific colectiilor si eventual lambda calculul urmatoarele. Rezultatul este depus intr-un dictionar iar acesta va fi afisat
+
+package com.pp.laborator
+import kotlin.random.Random
+
+//GENERAREA CELOR 2 COLECTII DE 20 DE ELEMENTE
+val A=List(20){it+1}
+val B=List(20){it+1}
+
+//PRODUS CARTEZIAN
+fun cartezian(A:List<Int>,B:List<Int>): List<Pair<Int, Int>>
+{
+    return A.flatMap { a->B.map{b->a to b} }
+}
+
+
+
+
+//INTERSECTIE
+fun intersectie(A:List<Pair<Int,Int>>, B:List<Pair<Int,Int>>): Set<Pair<Int, Int>>
+{
+    return A.intersect(B)
+}
+
+//MAIN
+fun main() {
+    println("Incepe programul")
+
+    val prodAxB= cartezian(A,B)
+    val prodBxA= cartezian(B,A)
+
+    //DEPUNEM REZULTATUL INTR-UN DICTIONAR
+    val result= intersectie(prodAxB,prodBxA).groupBy ({ it.first }, {it.second})
+
+    print(result)
+
+}
+
+
+SV 47
+Python: Cu ajutorul modelului memento sa se creeze un program Python care va permite aplicarea succesiva a unor functii lambda peste o colectie si apoi va restura obiectele la starea anterioara in  momentul in care acest lucru este cerut la consola
+f1(x) = x+1 (daca x par), altfel f1(x)=x
+f2(x)=3x*x -2*x+1
+f3(x,y)=x+y
+Se vor desena diagrama de clase si obiecte. Se va aplica maniera de aplicare a principiilor SOLID
+
+from functional import seq
+
+#MEMENTO
+
+class Memento:
+    def __init__(self,lista):        #lista e starea
+        self.lista=lista
+    def getState(self):
+        return self.lista
+
+class Originator:
+    def __init__(self, lista):
+        self.lista=lista
+
+    def f1(self):
+        functie = lambda x: x + 1 if x % 2 == 0 else x
+        self.lista = [functie(x) for x in self.lista]
+
+    def f2(self):
+        functie = lambda x: 3 * x * x - 2 * x + 1
+        self.lista = [functie(x) for x in self.lista]
+
+    def f3(self, i):
+        i = int(i)
+        if 0 <= i < len(self.lista) - 1:
+            self.lista[i] = self.lista[i] + self.lista[i + 1]
+        else:
+            self.lista[i] = self.lista[i]
+
+    def save(self)->Memento:
+        return Memento(self.lista)
+
+    def restore(self,memento:Memento):
+        self.lista=memento.getState()
+
+    def getState(self):
+        return self.lista
+
+
+#CARETAKER
+
+class Caretaker:
+    def __init__(self, originator: Originator):
+        self.originator=originator
+        self.history=[]
+
+    def save_states(self):
+        self.history.append(self.originator.save())
+
+    def undo(self):
+        if self.history:
+            memento=self.history.pop()
+            self.originator.restore(memento)
+        else:
+            print("Nu e nimic de restaurat")
+
+
+#MAIN
+
+if __name__ == '__main__':
+    colection=[1,2,3,4,5,6]
+    originator=Originator(colection)
+    caretaker=Caretaker(originator)
+
+    #salvarea starii initiale
+    caretaker.save_states()
+
+    originator.f1()
+    print("Dupa aplicare primei functii :", originator.getState())
+
+    caretaker.save_states()
+
+    originator.f2()
+    print("Dupa aplicarea celei de -a doua functii: ", originator.getState())
+
+    caretaker.save_states()
+
+    caretaker.undo()
+    print("Am revenit la o versiune anterioara", originator.getState())
+
+
+
+SV 47
+Python: Utilizand modelul strategie sa se creeze un program Python care sa trateze diferentiat un mesaj de eroare in functie de clasa lui ( 2- warning-> scriu in fisier de warnings, 1-error-> afisez la consola si scriu in fisier de erori comune, 0-critical error-> voi scrie in fisierul de erori grave si voi opri programul.) Se vor utilzia exceptii personalizate crate de programator. Se vor desena diagrama de clase si obiecte. Se va explica maniera de aplicare a principiilor SOLID. 
+#STRATEGIE
+class Strategy:
+    def trateazaEroare(self,mesaj:str):
+        Pass
+
+from Strategy import Strategy
+
+#ERORSTARTEGY
+class ErrorStrategy(Strategy):
+    def trateazaEroare(self,mesaj:str):
+        try:
+            f=open("error.txt",'a')
+            f.write(mesaj)
+        except FileNotFoundError:
+            print("Nu s a gasit fisierul")
+
+#WARNING
+from Strategy import Strategy
+
+class WarningStrategy(Strategy):
+   def trateazaEroare(self,mesaj:str):
+        try:
+            f=open("warning.txt","a")
+            f.write(mesaj)
+        except FileNotFoundError:
+            print("Fisierul nu exista")
+
+
+#CRITICAL
+from Strategy import Strategy
+
+class CriticalErrorStrategy(Strategy):
+    def trateazaEroare(self,mesaj:str):
+        try:
+            f=open("critical.txt","a")
+            f.write(mesaj)
+        except FileNotFoundError:
+            print("Fisierul nu se gaseste")
+  
+#CONTEXT          
+from Strategy import Strategy
+class Context:
+    def __init__(self):
+        self.strategy=Strategy()
+
+    def setStrategy(self,strategie:Strategy):
+        self.strategy=strategie
+
+    def execute(self, mesaj):
+        self.strategy.trateazaEroare(mesaj)
+
+
+#STABILIRECONTEXT
+from Context import Context
+from CriticalErrorStrategy import CriticalErrorStrategy
+from ErrorStrategy import ErrorStrategy
+from WarningStrategy import WarningStrategy
+
+class StabilireContext:
+    def __init__(self):
+        self.context=Context()
+
+    def error_type(self,mesaj:str):
+        if(mesaj.startswith("2")):
+            self.context.setStrategy(WarningStrategy())
+        else:
+            if(mesaj.startswith("1")):
+                self.context.setStrategy(ErrorStrategy())
+            else:
+                if(mesaj.startswith("0")):
+                    self.context.setStrategy(CriticalErrorStrategy())
+                else:
+                    print("Mesaj de eroare invalid")
+
+    def ProcesareErori(self,mesaj:str):
+        self.error_type(mesaj)
+        self.context.execute(mesaj)
+
+#MAIN
+from StabilireContext import StabilireContext
+
+if __name__=="__main__":
+    mesajWarning="2-se scrie in fisierul de warning"
+    mesajEroare="1-se scrie in fisierul de erori"
+    mesajCritic="0-se scrie in fisierul critic"
+
+    CE=StabilireContext()
+    CE.ProcesareErori(mesajEroare)
+    CE.ProcesareErori(mesajCritic)
+    CE.ProcesareErori(mesajWarning)
+
+
+SV 39
+Kotlin: Fie o multime la intrare A de 100 de elemente pare alese aleator care sunt depuse intr-o colectie. Sa se scrie un program in care se va calcula bn=a12+a22+a32+....an2 ,  n natural, diferit de 0.
+
+package com.pp.laborator
+import kotlin.random.Random
+fun main() {
+    //generare lista de numere pare aleatorii
+
+    val multimePare= mutableListOf<Int>()
+    while(multimePare.size<3)
+    {
+        var nr=Random.nextInt(0,1000)
+        while(nr%2!=0)
+        {
+            nr=Random.nextInt(0,1000)
+        }
+        multimePare.add(nr)
+    }
+
+    println(multimePare)
+    //calcul pentru calculul fiecarui element din lista
+    val bn=multimePare.asSequence().fold(initial = 0, {acc,elem ->acc+elem*elem})
+    print(bn)
+   }
+
+
+
+
+SV 39
+Pthon: utilizand tkinter sa se creeze un program Python care permite introducerea datelor unui angajat in companie ( companie, departament, nume, data de nastere, functie si salariu). Pentru introducerea datei de nastere se va folosi un combox pentru selectia lunii. Programul va avea meniu.
+
+import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
+from tkinter import *
+
+class EmployeeForm(tk.Tk): #mosteneste Th din tkinter => EmployeeForm este o fereastra Tk
+    def __init__(self):
+        super().__init__() #apelam constructorul clasei tk.Tk pt a initializa corect fereastra
+
+        self.title("Employee Data Entry")
+        self.geometry("400x300")
+
+        # Meniu
+        menu = tk.Menu(self) #se creeaza un obiect "Menu" ce se asociaza derestrei principale self
+        self.config(menu=menu) #configureaza fereastra principala sa foloseasca acest meniu
+
+        file_menu = tk.Menu(menu, tearoff=0) #creeaza un submeniu numit "file_menu" si seteaza tearoff=0, ceea ce inseamna ca
+        #utilizatorul nu poate separa meniul de fereastra
+        menu.add_cascade(label="File", menu=file_menu) #adauga acest submeniu in meniul principal cu eticheta File
+        file_menu.add_command(label="Exit", command=self.quit) #adauga o comanda in submeniul File
+
+        help_menu = tk.Menu(menu, tearoff=0) #Se creeaza un alt submeniu numit "help_menu"
+        menu.add_cascade(label="Help", menu=help_menu) #se adauga submeniul in meniul principal
+        help_menu.add_command(label="About", command=self.show_about) #adauga o comanda pt submeniul help
+
+        # Labels and Entries
+        tk.Label(self, text="Company:").grid(row=0, column=0, padx=10, pady=5, sticky="w") #creeaza o etocheta(label) cee afis textul
+        #padx=adauga un ps de pixeli pe oriz si 5 pe verticala si aliniaza textul la stg ( W->west)
+        self.company_entry = tk.Entry(self) #creeaza un camp de introducere Entru pentru a permite utlizatorului sa introduca  numele
+        self.company_entry.grid(row=0, column=1, padx=10, pady=5) #plaseaza acest camp de introducere in randul 0, coloana 1
+
+        tk.Label(self, text="Department:").grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        self.department_entry = tk.Entry(self)
+        self.department_entry.grid(row=1, column=1, padx=10, pady=5)
+
+        tk.Label(self, text="Name:").grid(row=2, column=0, padx=10, pady=5, sticky="w")
+        self.name_entry = tk.Entry(self)
+        self.name_entry.grid(row=2, column=1, padx=10, pady=5)
+
+        tk.Label(self, text="Date of Birth:").grid(row=3, column=0, padx=10, pady=5, sticky="w")
+        self.day_entry = tk.Entry(self, width=5) #latimea  campului va fi de 5 caractere
+        self.day_entry.grid(row=3, column=1, padx=10, pady=5, sticky="w")
+
+        self.month_combobox = ttk.Combobox(self, values=[ #creeaza un combox
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"])
+        self.month_combobox.grid(row=3, column=1, padx=10, pady=5)
+        self.month_combobox.current(0) #seteaza luna implicita
+
+        self.year_entry = tk.Entry(self, width=5)
+        self.year_entry.grid(row=3, column=2, padx=10, pady=5)
+
+        tk.Label(self, text="Position:").grid(row=4, column=0, padx=10, pady=5, sticky="w")
+        self.position_entry = tk.Entry(self)
+        self.position_entry.grid(row=4, column=1, padx=10, pady=5)
+
+        tk.Label(self, text="Salary:").grid(row=5, column=0, padx=10, pady=5, sticky="w")
+        self.salary_entry = tk.Entry(self)
+        self.salary_entry.grid(row=5, column=1, padx=10, pady=5)
+
+        # Save button
+        save_button = tk.Button(self, text="Save", command=self.save_data) #creeaza un buton save. cand utlizatorul apasa butonul, metoda save_data va fi apelata
+        save_button.grid(row=6, column=0, columnspan=2, pady=10)
+
+    def save_data(self): #obtine valoarea introdusa de utilziator in campurile date
+        company = self.company_entry.get()
+        department = self.department_entry.get()
+        name = self.name_entry.get()
+        day = self.day_entry.get()
+        month = self.month_combobox.get()
+        year = self.year_entry.get()
+        position = self.position_entry.get()
+        salary = self.salary_entry.get()
+
+
+        # Optionally, you can add code here to save the data to a file or database.
+        messagebox.showinfo("Success", f"Data for {name} has been saved!")
+
+    def show_about(self):
+        messagebox.showinfo("About", "Employee Data Entry\nVersion 1.0")
+
+
+if __name__ == "__main__":
+    app = EmployeeForm()
+    app.mainloop()
+
+
+SV 33
+Kotlin: Utilizand Kotlin functiile pentru procesare submultimi din se va prelua un fisier text(creat de programator cu cateva propozitii in el) si se vor extrage2 caractere din mijlocul cuvantului daca cuvantul are minim 4 caractere. Se va utiliza combinatie cu lambda peste colectii pentru procesare
+
+package com.pp.laborator
+
+import java.io.File
+
+fun main(args: Array<String>)
+{
+    var linie= File("incercare.txt").readText().split(" ")
+    print(linie)
+
+    var lista=linie.asSequence().filter{word->word.length>4}
+        .map{word->word.substring(startIndex = word.length/2, endIndex = word.length/2+2)}.toList()
+    print(lista)
+}
+
+
+SV 33
+Python: Utilizand modelul mediator sa se creeze un program Python care sa permita comunicarea prin mesaje intre niste obiecte de tip furnica (e.g mesaje, mancare, drum bun, pericol, ajutor). Se vor desena diagrama de clase si obiecte. Se va explica maniera de aplicare a principiilor SOLID
+
+from abc import ABC, abstractmethod
+# interfata mediator
+class Mediator(ABC):
+    @abstractmethod
+    def trimite_mesaj(self, mesaj, furnica):
+        pass
+
+
+from Mediator import Mediator
+
+# IMPLEMENTARE MEDIATOR
+class ChatMusuroi(Mediator):
+    def __init__(self):
+        self.furnici = []
+
+    def add_furnica(self, furnica):
+        self.furnici.append(furnica)
+
+    def trimite_mesaj(self, mesaj, furnica):
+        for f in self.furnici:
+            if f != furnica:
+                f.print_msg(mesaj, furnica)
+
+
+
+
+#FURNICA
+from Mediator import Mediator
+
+class Furnica:
+    def __init__(self,nume,mediator):
+        self.nume=nume
+        self.mediator=mediator
+        self.mediator.add_furnica(self)
+
+    def spune(self,mesaj):
+        self.mediator.trimite_mesaj(mesaj,self)
+
+    def print_msg(self,mesaj,expeditor):
+        print(f"[{expeditor.nume} zile]: {mesaj}")
+
+    def _str__(self):
+        return self.nume
+
+#MAIN
+
+from ChatMusuroi import ChatMusuroi
+from Mediator import Mediator
+from Furnica import Furnica
+
+
+if __name__=="__main__":
+    chat=ChatMusuroi()
+
+    furnicaMica=Furnica("Furnica Mica", chat)
+    furni=Furnica("Furni", chat)
+    furnicuta=Furnica("Furnicuta", chat)
+
+    furnicaMica.spune("Drum bun")
+    furni.spune("Pericol")
+    furnicuta.spune("Vreau mancare")
+
+
+
+
+SV 32
+
+Kotlin: Utilizand Kotlin sa se splice un functor peste elementele unui hashmap care va realiza urmatoarele procesari: va aplicaa f(x) = 3x-1 ca lambda, le va transforma in string si va afisa rezultatul
+class HashMapFunctor< T, K>(val hashMap: HashMap<T, K>)
+{
+    fun map(function: (K) ->(K)): HashMapFunctor<T, K>
+    {
+        var result = HashMap<T, K>()
+        for((key, value) in hashMap){
+            result[key] = function(value)
+        }
+        return HashMapFunctor(result)
+    }
+}
+
+fun main(args: Array<String>) {
+
+    val mapa= hashMapOf<Int, Int>(Pair(1,1), Pair(2,2), Pair(3,3))
+    println(HashMapFunctor(mapa).map { elem -> 3*elem -1 }.hashMap.toString())
+}
+
+
+SV 32
+Python: Utilizand functii din itertool -Python si un contor tip closure sa se genereze automat nume de fisiere temporare care vor fi create astfel s1-index-s2.tmp unde s1 si s2 sunt nume primite la apelul metodei. Metoda va verifica unde a ramas generatorul si va intoarce urmatorul nume
+import itertools
+
+def file_name_generator(s1,s2):
+    #se creeaza un generator care genereaza un flux de date de la 1
+    counter=itertools.count(1)
+
+    #closure care va genera numele de fisier
+    def generate_name():
+        index=next(counter)
+
+        return f"{s1}-{index}-{s2}.tmp"
+    return generate_name
+if __name__=="__main__":
+    s1="temp"
+    s2="data"
+
+    generate_temp_file_name=file_name_generator(s1,s2)
+
+    print(generate_temp_file_name())
+    print(generate_temp_file_name())
+    print(generate_temp_file_name())
+
+
+PDF_epubPY_JsoupKT
+Python: Utilizand secvente din Python (PyFunctional), corutinele(asyncio) si impartirea in mai multe bucati, sa se elimine dintr-un fisier text rezultat din conversia unui epub ( aveti asa ceva de la o tema ) spatiile multiple, salturile la linie noua. La sfarsit va fi generat noul fisier. Se vor folosi aboradri de tipul impacheteaza-proceseaza-despacheteaza 
+
+from epub2txt import epub2txt
+import asyncio
+import re
+from functional import seq
+
+
+async def process_string(deProcesat):
+    rezz1 = re.sub(" +", " ", deProcesat)
+    rezz2 = seq(list(rezz1)).filter(lambda it: it != "\n").make_string("")
+    file2 = open("ebook_modificat.txt",'w')
+    file2.write(rezz2)
+
+
+async def main():
+    rezz = epub2txt("sample1.epub")
+    await asyncio.gather(process_string(rezz))
+
+if __name__ == '__main__':
+   asyncio.run(main())
+
+
+
+
+PDF_epubPY_JsoupKT
+
+Kotlin: Sa se creeze in Kotlin un program care sa descarce o pagina HTML< o analizeaza cu modulul Jsoup si salveaza separat toate imaginile grafice din el. Se vor cauta tag-uri de tip ‘img’ si se va extrage valoarea atributului src( sursa imaginii respective), pe baza careia poate fi descarcata imaginea cu cererea GET
+import org.jsoup.Jsoup
+import java.io.File
+import java.net.URL
+import kotlin.io.readBytes
+
+fun main(args: Array<String>)
+{
+    val doc = Jsoup.connect("http://www.columbia.edu/~fdc/sample.html").get()
+    var i = 0
+    for (e in doc.select("img")) {
+        val linkImg = e.attr("abs:src")
+        System.out.println(linkImg)
+        val URLImagine = URL(linkImg).readBytes()
+        File("imagine"+i+".jpg").writeBytes(URLImagine)
+        i++
+    }
+}
+
+//VARIANTA2
+import org.jsoup.Jsoup
+import java.io.File
+import java.net.URL
+
+fun main()
+{
+    val url = "https://www.geeksforgeeks.org/html-images/"
+    val doc = Jsoup.connect(url).get()
+    var i = 0
+
+    val outputDirector = File("Imagini Descarcate")
+    if(!outputDirector.exists())
+    {
+        outputDirector.mkdir()
+    }
+
+    for(image in doc.select("img"))
+    {
+        try
+        {
+            var imgLnk = image.attr("abs:src")
+            println(" Dowloading: $imgLnk")
+            val urlImg = URL(imgLnk).readBytes()
+            val imageName = "image_$i.jpg"
+            File(outputDirector, imageName).writeBytes(urlImg)
+            println(" Saved: $imageName")
+            i++
+        }
+        catch (e: Exception)
+        {
+            println(" Nu se poate descarca imaginea: ${e.message}")
+        }
+    }
+}
+
+
+PDF_2
+
+Kotlin: Utilizand functii de extensie sa se scrie in Kotlin un aplicative care aplica intr-o corutina o transformare lambda bazata pe regex care sa elimine dintr-un continut HTML tag-urile ‘script’ si ‘style’ ( si continutul lor, bineinteles). Functia extensie poate fi aplicata unui String, iar aceasta poate filtra continutul HTML
+package com.pp.laborator
+import kotlinx.coroutines.*
+import java.util.regex.Pattern //folosita pt a lucra cu corutine in Kotlin
+
+fun String.removeScriptAndStyletags() : String {
+    //regex pt a gasi si elimina tag-urile si continutul <script> si <style>
+    val scriptRegex="<script[^>]*>.*?</script>".toRegex(RegexOption.DOT_MATCHES_ALL)
+    val styleRegex= "<style[^>]*>.*?</style>".toRegex(RegexOption.DOT_MATCHES_ALL)
+
+    return this.replace(scriptRegex, "").replace(styleRegex, "")
+}
+
+fun main() = runBlocking {
+    //exemplu continut HTML
+    val htmlContent = """
+        <html>
+            <head>
+                <style>
+                    body { background-color: #f3f3f3; }
+                </style>
+                <script>
+                    console.log("Hello, World!");
+                </script>
+            </head>
+            <body>
+                <h1>Title</h1>
+                <p>This is a paragraph.</p>
+            </body>
+        </html
+    """.trimIndent()
+
+    //lansam o corutina pentru a filtra continutul html
+    val filteredContent = withContext(Dispatchers.Default){
+        htmlContent.removeScriptAndStyletags()
+    }
+
+    //afisare continut
+    println(filteredContent)
+}
+
+PDF_2
+Python: Cu ajutorul modelului memento sa se creeze un program Python care va permite aplicarea succesiva a unor lambda functii peste o colectie initializata cu date citite dintr-un fisier si apoi va restaura obiectele la starea anterioara in momentul in care acest lucru este cerut ( la consola). Se vor aplica urmatoarele functii:
+-> f1(x)= x+1 (daca x par ), altfel f1(x)=x
+-> f2(x)= 3x*x - 2*x +1
+-> f3(x)= x[i] + x[i+1] , unde i este indexul x-ului primit ca parametru
+Se va desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID
+
+#ORIGINATOR
+from Memento import Memento
+class Originator:
+    def __init__(self, lista):
+        self.lista=lista
+
+    def f1(self):
+        functie = lambda x: x + 1 if x % 2 == 0 else x
+        self.lista = [functie(x) for x in self.lista]
+
+    def f2(self):
+        functie = lambda x: 3 * x * x - 2 * x + 1
+        self.lista = [functie(x) for x in self.lista]
+
+    def f3(self, i):
+        i = int(i)
+        if 0 <= i < len(self.lista) - 1:
+            self.lista[i] = self.lista[i] + self.lista[i + 1]
+        else:
+            self.lista[i] = self.lista[i]
+
+    def save(self)->Memento:
+        return Memento(self.lista)
+
+    def restore(self,memento:Memento):
+        self.lista=memento.getState()
+
+    def getState(self):
+        return self.lista
+
+#MEMENTO
+from functional import seq
+
+class Memento:
+    def __init__(self,lista):        #lista e starea
+        self.lista=lista
+
+    def getState(self):
+        return self.lista
+
+
+#CARETAKER
+from Originator import Originator
+
+class Caretaker:
+    def __init__(self, originator:Originator):
+        self.originator=originator
+        self.history=[]
+
+    def save_states(self):
+        self.history.append(self.originator.save())
+
+    def undo(self):
+        if self.history:
+            memento=self.history.pop()
+            self.originator.restore(memento)
+        else:
+            print("Nu e nimic de restaurat")
+#MAIN
+from Originator import Originator
+
+from Memento import Memento
+from Caretaker import Caretaker
+if __name__ == '__main__':
+    colection=[1,2,3,4,5,6]
+    originator=Originator(colection)
+    caretaker=Caretaker()
+    history=[]
+
+    #salvarea starii initiale
+    caretaker.save_states()
+
+    originator.f1()
+    print("Dupa aplicare primei functii :", originator.getState())
+
+    caretaker.save_states()
+
+    originator.f2()
+    print("Dupa aplicarea celei de -a doua functii: ", originator.getState())
+
+    caretaker.save_states()
+
+    caretaker.undo()
+    print("Am revenit la o versiune anterioara", originator.getState())
+
+PDF_procesePY_corutineKT
+Python: Utilizand procese Python, sa se creeze un proces care da timestamp-ul la solicitarea unui alt proces care citeste cate un cuvant dintr-un fisier text. Vor exista minim 2 procese care citesc din mai multe fisiere (fiecare proces cate un fisier). Rezultatele sunt depuse intr-un alt ADT de tip dictionar, in care cheia va fi timestamp-ul, iar valoarea va fi cuvantul. Printr-o coada thread-safe, se va transmite ADT-ul creat catre un alt proces care il va prelucra astfel incat sa concateneze cheia si valoarea cu - intre ele, apoi sa separe cuvintele prin virgula si sa le scrie intr-un fisier (CSV).
+
+import multiprocessing
+import time
+from multiprocessing import Queue, Lock, Process
+
+def putInHashMap(coadaMesaje:Queue, coadaTimpi:Queue, CUV: str, HMP:dict):
+    print("Se cere un timestamp")
+    print(coadaMesaje.empty())
+    timestamp = coadaTimpi.get()
+    data = {timestamp: CUV} #se creeaza un dictionar temporar cu un singur elem, unde cheia e timestamp si valoarea e CUV
+    HMP.update(data) #se adauga dictionarul temporar la HMP
+    print("S-a facut adaugarea cuv in hMP")
+    print(HMP)
+
+
+def TimeStamp(coadaMesaje:Queue, coadaTimpi:Queue,noConsumers):
+    consumate = 0 #un contor pt a uramari cate procese consumatoare (WordEater) au terminat
+    print("a pornit procesul de timestamp")
+    print("TimeStamp asteapta mesaj")
+    while True: #se opreste cand toate procesele consumatoare sunt terminate
+        mesaj = coadaMesaje.get()
+        print("TimeStamp a primit mesajul: " + mesaj)
+        if mesaj == "Timestamp":
+            print("S-a trimis timestamp")
+            coadaTimpi.put(time.time_ns()) #pune timestamp( timpul in nanosecunde)
+        if mesaj == "Exit":
+            consumate = consumate+1 
+            if(consumate==noConsumers):  #daca toate procesele au terminat
+                exit(0)
+
+
+def WordEater(coadaMesaje:Queue, coadaTimpi:Queue, dictionar:dict, numeFis: str, returnValue: Queue):
+    print("a pornit word eater")
+    continutFisier = open(numeFis, 'r').readline().split(" ")
+    print(continutFisier)
+    for cuv in continutFisier:
+        print("se pune cuvantul: " + cuv + " in hashMap")
+        coadaMesaje.put("Timestamp") 
+        print(coadaMesaje.empty()) #afiseaza daca coada este goala sau nu
+        putInHashMap(coadaMesaje,coadaTimpi, cuv,dictionar)  #apeleaza functia
+        print("S-a reusit! ")
+    coadaMesaje.put("Exit")
+    returnValue.put(dictionar)
+    exit(0)
+
+def Concatenator(coadaInput:Queue):
+    dict1:dict = coadaInput.get() #preiau 2 dictionare din coada "coadaInput"
+    dict2:dict = coadaInput.get() #acestea 2 contin timestampuri si cuvinte colectate de cele 2 procese WordEater
+    listaMeaFinala = [] #facem o lsita goala ce va vontine timestampurile si cuvintele combinate
+    for cheie in dict1:
+        listaMeaFinala.append(str(cheie)) #adaugam timestamp-ul ca string in lista finala
+        listaMeaFinala.append(dict1[cheie]) #adaugam cuvantul asocial timestampului
+    for cheie in dict2:
+        listaMeaFinala.append(str(cheie))
+        listaMeaFinala.append(dict2[cheie])
+    fisierOutput = open('fisierOut','w')
+    fisierOutput.write(str(listaMeaFinala).replace("[","").replace("\'",""))
+
+
+
+if __name__ == '__main__':
+
+    myLock = Lock() #previnr accesul simultan la o resursa partajata intre mai multe procese
+    myHashMap = dict()
+    coadamsg: Queue = multiprocessing.Queue()
+    coadaReturn: Queue = multiprocessing.Queue()
+    coadaTimeStamp = multiprocessing.Queue()
+
+    timeStamper = Process(target=TimeStamp, args=(coadamsg,coadaTimeStamp,2))
+    #se va rula functia TimeStamp. Procesul primeste coada de mesaje, coada pt timestamp-uri si numarul de cnsumatori 2
+    wordEater1 = Process(target=WordEater, args=(coadamsg, coadaTimeStamp, myHashMap,"data1.txt",coadaReturn))
+    wordEater2 = Process(target=WordEater, args=(coadamsg, coadaTimeStamp, myHashMap,"data2.txt",coadaReturn))
+    concatenate = Process(target=Concatenator, args=(coadaReturn,))
+
+    wordEater1.start()
+    wordEater2.start()
+    timeStamper.start()
+    concatenate.start()
+
+    timeStamper.join()
+    wordEater1.join()
+    wordEater2.join()
+
+
+PDF_procesePY_corutineKT
+Kotlin: Sa se scrie un program Kotlin care va utiliza mai multe corutine ce vor suma cate 2 valori alaturate intr-un hashmap, apoi rezultatele sumarilor vor fi depuse intr-un ADT (comun pt toate corutinele) rezultat. Inainte de afisare,se va utiliza o reimplementare a barierei care se va baza pe corutine si pe mecanisme de tip wait, notify si notify all.
+package com.pp.laborator
+
+import kotlinx.coroutines.*
+import java.util.concurrent.ConcurrentHashMap
+//HASHMAPINITIAL
+
+val hashMap= hashMapOf(
+    1 to 2,
+    2 to 4,
+    3 to 6,
+    4 to 8,
+    5 to 10,
+    6 to 12
+)
+//ADT pentru stocarea rezultatelor
+val result=ConcurrentHashMap<Int,Int>()
+
+//BARIERA PENTRU WAIT SI NOTIFY ALL
+class CoroutineBarier(private val nrParties:Int)
+{
+    private var count=nrParties
+
+    @Synchronized
+    //metoda sincronizata
+    fun await()
+    {
+        count=count-1
+        if(count>0)
+        {
+            (this as java.lang.Object).wait()
+        }
+        else
+        {
+            (this as java.lang.Object).notify()
+        }
+    }
+}
+
+
+//IMPLEMENTARE CORUTINEI SI BARIEREI
+fun main()= runBlocking {
+    val bariera=CoroutineBarier(hashMap.size/2)
+
+    //corutinele
+    val jobs= mutableListOf<Job>()
+
+    for ( i in 1 until hashMap.size)
+    {
+        val firstValue= hashMap[i]
+        val secondValue= hashMap[i+1]
+
+        //lansare corutine pentru a aduna valori adiacente
+        val job=launch(Dispatchers.Default)
+        {
+            if(firstValue!=null && secondValue!=null)
+            {
+                val sum=firstValue+secondValue
+                result[i]=sum
+
+                bariera.await()
+            }
+        }
+        jobs.add(job)
+
+    }
+
+        //asteptam ca toate corutinele sa se incheie
+    jobs.forEach { it.join() }
+    print("Rezultate:$result")
+}
+
+
+
+PDF_ProcesareFisProcPY_ProxyKT
+Kotlin: Utilizand fabrica de obiecte sa se scrie un program Kotlin care sa permita crearea unor obiecte de tip student diferentiate de starea lui: integralist, restantier si repetent. La intrare programul va primi un fisier text cu inregistrarile a mai multor studenti( format nume & prenume, grupa, dictionar cu disciplina ca cheie si media finala ca valoare). Regulile de decizie pentru a afisa starea studentului sunt (nici o nota < 5 -integralist, numarul de cazuri cu nota < 5 este intre 2 si 4 -restantier, daca acest nr > 4 atunci studentul este clasificat ca repetent). Pentru cei restantieri si repetenti trebuie sa existe o metoda suplimentara de accesare bazata pe modelul Proxy a datelor dintr-o clasa de date cu verificarea unei parole. Se vor desena diagrame de clase si de obiecte
+import java.io.File
+
+abstract class Student( val nume: String, val Prenume: String, val medii: MutableMap<String, Double>)
+{
+    abstract fun souneCineEsti()
+    open fun getDataConfifentiala(){
+        println("accesul la date confidentiale este permis doar la restantieri si repetenti")
+
+    }
+}
+
+class Integralist(val num:String, val Prenum: String, val med: MutableMap<String, Double>): Student(num, Prenum, med)
+{
+    override fun souneCineEsti() {
+        println("Ma cheama $num $Prenum, sunt integralist si am mediile: $med")
+    }
+}
+
+class Restantier(val num: String, val Prenum: String, val med: MutableMap<String, Double>): Student(num, Prenum, med)
+{
+    override fun souneCineEsti() {
+        println("Ma cheama $num $Prenum, sunt restantier si am mediile: $med" )
+    }
+
+    override fun getDataConfifentiala() {
+        val dataConfidentiala = ClasaDeDate()
+        val proxy = ProtectieCuParola(dataConfidentiala)
+        proxy.getDataConfidentiala(this.num)
+    }
+}
+class Repetent(val num: String, val Prenum:String, val med: MutableMap<String, Double>): Student(num, Prenum ,med)
+{
+    override fun souneCineEsti() {
+        println("Ma cheama $num $Prenum, sunt REPETENT si am mediile : $med")
+    }
+
+    override fun getDataConfifentiala() {
+        val dataConfidentiala = ClasaDeDate()
+        val proxy= ProtectieCuParola(dataConfidentiala)
+        proxy.getDataConfidentiala(this.num)
+    }
+}
+class StudentFactory()
+{
+    fun makeStudent(tip: String, nume:String,prenume:String, medii:MutableMap<String, Double>): Student
+    {
+        if(tip.lowercase() == "integralist"){
+            return Integralist(nume, prenume, medii)
+        }
+        if(tip.lowercase() == "restantier"){
+            return Restantier(nume, prenume, medii)
+        }
+        else
+        {
+            return Repetent(nume, prenume, medii)
+        }
+    }
+}
+
+fun citesteListaStudentiDinFisier( numef:String): List<Student>
+{
+    val SF = StudentFactory()
+    val listaStudenti= mutableListOf<Student>()
+    val studenti = File(numef).readLines()
+    for (student in studenti)
+    {
+        val studentL = student.split(" ")
+        val numeS = studentL[0]
+        val prenumeS = studentL[1]
+        val mediiS= studentL.filterIndexed { index, s -> index >= 2}
+
+        val mediiPeMaterii = mediiS.windowed(2, 2)
+        val HMPmed = mutableMapOf<String, Double>()
+        for( element in mediiPeMaterii)
+            HMPmed[element[0]] = element[1].toDouble()
+        var contor = 0
+        for( element in HMPmed)
+            if(element.value < 5)
+                contor++
+        if (contor<1)
+            listaStudenti.add(SF.makeStudent("integralist", numeS, prenumeS, HMPmed))
+        else if (contor < 4)
+            listaStudenti.add(SF.makeStudent("restantier", numeS, prenumeS, HMPmed))
+        else
+            listaStudenti.add(SF.makeStudent("repetent", numeS, prenumeS, HMPmed))
+    }
+    return listaStudenti
+}
+
+interface LucratorCuDate
+{
+    fun getDataConfidentiala( user: String)
+}
+class ClasaDeDate: LucratorCuDate{
+    override fun getDataConfidentiala(user: String) {
+        print ("Aceasta este o data confidentiala. Accesul a fost permis")
+    }
+}
+
+class ProtectieCuParola( val c: LucratorCuDate): LucratorCuDate
+{
+    val HMPparole = mapOf(Pair("Dorel", "doru123"), Pair("George", "geo123"))
+    override fun getDataConfidentiala(user: String) {
+        println(" Introdduceti parola pentru utilizatorul $user pentru a verifica daca aveti acces la datele protejate: ")
+        val parola = readln()
+        if(HMPparole[user] == parola)
+        {
+            c.getDataConfidentiala(user)
+        }
+        else
+        {
+            println("Accesul a esuat, parola gresita")
+        }
+    }
+}
+
+fun main(args: Array<String>)
+{
+    val LStudenti = citesteListaStudentiDinFisier("catalog.txt")
+    for (student in LStudenti)
+        student.souneCineEsti()
+
+
+    for (student in LStudenti)
+        student.getDataConfifentiala()
+}
+
+
+PDF_ProcesareFisProcPY_ProxyKT
+Python: Dintr-un fisier de minim 50 de valori (numere) se iau cate 10 valori consecutive care vor fi procesate intr-un proces separat ( din multiprocessing, Python) (deci se lanseaza in executie minim 5 procese). Datele sunt depuse intr-un ADT, apoi se va efectua o procesare de tip lambda care va gasi minimul, maximul si media din secventa, apoi va extrage o submultime ce contine numai numerele care se afla in intervalul media + sau - media patratica secventei procesate
+import multiprocessing as mp
+import math
+
+#functie pentru a procesa o secventa de numere
+def process_sequence(sequence):
+    #calculam minimul, maximul si media
+    min_val= min(sequence)
+    max_val= max(sequence)
+    mean_val= sum(sequence) / len(sequence)
+
+    #calculam media patratica (radacina patrata a mediei patratelor)
+    squared_mean = math.sqrt(sum(x**2 for x in sequence) /len(sequence))
+
+    #definim intervalul
+    lower_boound = mean_val - squared_mean
+    upper_bound = mean_val + squared_mean
+
+    #extragem numerele ce se afla in interval
+    subset = [ x for x in sequence if lower_boound <= x <=upper_bound]
+
+    return {
+        'min': min_val,
+        'max': max_val,
+        'mean': mean_val,
+        'subset': subset
+    }
+
+#functia principala
+def main():
+    #citirea numerelor din fisier
+    with open('numbers.txt', 'r', encoding='utf-8-sig') as f:
+        content = f.read().replace(',', ' ')  # Înlocuim virgulele cu spații
+        numbers = list(map(int, content.split()))
+
+    #ne asiguram ca avem minim 50 de numere
+    if len(numbers) < 50:
+        raise ValueError("Fisierul trebuie sa contina minim 50 de numere")
+
+    #impartim numerele in secvente de cate 10
+    sequence = [ numbers [i:i + 10] for i in range(0, len(numbers), 10)]
+
+    #procesam fiecare secventa intr-un proces separat
+    with mp.Pool( processes=len(sequence)) as pool:
+        results = pool.map(process_sequence, sequence)
+
+    #afisam rezultatele
+    for idx, result in enumerate(results):
+        print(f"Secventa {idx + 1}")
+        print(f" Min: {result['min']}")
+        print(f" Max: {result['max']}")
+        print(f" Mean: {result['mean']}")
+        print(f" Subset: {result['subset']}\n")
+
+if __name__ == '__main__':
+    main()
+
+
+PDF_mapReduce_IterTools
+Python: Pornind de la exemplu cu map_reduce din modulul more_itertools(python), sa se calculeze indexul invers pentru un set de document text( creat de student). Toate cele 3 functii (key_func, value_func si reduce_func) vor fi scrise ca expresii lambda. Se va citi continutul fiecarui document si apoi se va sparge si reuni intr-o singura lista de cuvinte
+-> Functia de mapare va returna perechi de forma <word, (document_id, 1)>, im care cheia este cuvantul, iar valoarea este formata din tupla document_id(numele documentului), si 1(o aparitie a cuvantului in document)
+-> Functia de reducere primeste toate perechile, emite o pereche de forma <word, [(document_id_i, count_word_in_document_id_i), (...), …]>, unde al doile element din tupla reprezinta numarul de aparitii ale cuvantului in documentul respectiv. Pentru simplitate, functia de reducere poate uriliza functia reduce_by_key din biblioteca PyFunctional, ca sa creeze acea lista de tuple. Exemplu de output:
+{‘a’:             [(‘text/1.txt’,1), (‘text/2.txt,2)],
+  ‘about’:      [(‘text/3.txt’,1)],
+   ‘always’:   [(‘text/3.txt’,1)],
+   ‘are’:         [(text/3.txt’, 2)],
+    ….}       
+import more_itertools
+import functional
+from functional import seq
+
+if __name__ == '__main__':
+    continut1 = open("text1.txt").read().split(" ")
+    continut2 = open("text2.txt").read().split(" ")
+
+    keyFun = lambda cuv: cuv
+    valueFun = lambda cuv: ('data1.txt', 1)
+    valueFun2 = lambda cuv: ('data2.txt', 1)
+    reduceFun = lambda lista: seq(lista).reduce_by_key(lambda x, y: x + y)
+
+    rezultat1 = more_itertools.map_reduce(continut1, keyFun, valueFun, reduceFun)
+    rezultat2 = more_itertools.map_reduce(continut2, keyFun, valueFun2, reduceFun)
+
+    print(rezultat1)
+    print(rezultat2)
+
+    for key in rezultat1.keys():
+        if key in rezultat2.keys():
+            rezultat1[key] = [rezultat1[key].first(), rezultat2[key].first()]
+    print(rezultat1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PDF_FunctorKT_decoratorPY
+Python: Utilizand modelul pod(bridge) sa se scrie in Python un program care va porni de la un model mamifer si apoi sa permite instantiere de obiecte de tip om, femeiem caine si pisica. Acestor obiecte li se vor adauga 3-4 functionalitati suplimentare la alegere utlizand decoratorii( de exemplu o functie care descrie/permite interactiunea dintre om si femeie sau om si pisica etc). Se vor desena diagrama si clase de obiecte. Se va eplica maniera de aplicare a principiilor SOLID.
+def interactiunea_om_pisica(func):
+    def wrapper(self, animal):
+        if isinstance(animal, Pisica):
+            print(f"{self.nume} interactioneaza cu pisica {animal.nume})")
+        else:
+            print(f"{self.nume} incearca sa interactioneze cu un animal incompatibil.")
+    return wrapper
+
+
+def interactiune_pisica_caine(func):
+    def wrapper(self, animal):
+        if(isinstance(animal, Caine)):
+            print("pisica " +self.nume+ "fuge de cainele" +animal.nume)
+        else:
+            print("interactiune incompatibila intre fiinte")
+    return wrapper
+
+
+class Mamifer:
+    def __init__(self, nume):
+        self.nume= nume
+
+    def spuneCeE(self):
+        pass
+
+class Om(Mamifer):
+    def spuneCeE(self):
+        print("Sunt un om si ma cheama:" +self.nume)
+
+    @interactiunea_om_pisica
+    def interactioneaza(self, pisica):
+        pass
+
+
+class Femeie(Om):
+    def spuneCeE(self):
+        super().spuneCeE(self)
+        print("si sunt femeie")
+
+
+class Animal(Mamifer):
+    def spuneCeE(self):
+        print("Sunt animal si ma chema: " +self.nume)
+
+class Caine(Animal):
+    def spuneCeE(self):
+        super().spuneCeE(self)
+        print("Si sunt caine")
+
+class Pisica(Animal):
+    def spuneCeE(self):
+        super().spuneCeE(self)
+        print("Si sunt pisica")
+
+    @interactiune_pisica_caine
+    def interactioneaza(self, animal):
+        pass
+
+class BridgeAbstract:
+    def __init__(self, tip:Mamifer):
+        self.tip=tip
+
+    def spuneCeva(self):
+        self.tip.spuneCeE()
+
+class BridgeSpecializat(BridgeAbstract):
+    def spuneCeva_concret(self):
+        self.spuneCeva()
+        print("Concret")
+
+if __name__ == '__main__':
+    pisi = Pisica("Pisi")
+    cutu = Caine("Cutu")
+    Ana = Om("Ana")
+    pod = BridgeSpecializat(Ana)
+    pod.spuneCeva_concret()
+    Ana.interactioneaza(pisi)
+    pisi.interactioneaza(cutu)
+
+
+PDF_FunctorKT_decoratorPY
+Kotlin: Sa se creeze in Kotlin un functor (utilizat intr-o corutina) pentru o colectie de tip MutableMap care sa prelucreze valorile. Pentru testare, se vor lansa mai multe corutine pentru procesarea unui MutableMap in care cheile sunt valori intregi, iar valorile sunt string-uri care contin mai multe cuvinte separate prin spatiu. Apelurile functiei map din functor vor prelucra MutableMap-ul astfel incat: primul map va adauga prefixul “Test” la fiecare valoare iar al doilea map va apela functia toPascalCase
+package com.pp.laborator
+import kotlinx.coroutines.*
+import javax.xml.crypto.dsig.Transform
+
+class MapFunctor<K, V>(private val map: MutableMap<K, V>){
+    fun map(transform: (V) -> V){
+        map.forEach{ (key, value) -> map[key] =transform(value)
+        }
+    }
+}
+
+fun addPrefix(value: String):String {
+    return "Test $value"
+}
+
+fun toPascalCase(value: String):String{
+    return value.split(" ").joinToString(" "){ it.capitalize() }
+}
+
+
+fun main ()=runBlocking {
+    val mutableMap: MutableMap<Int, String> = mutableMapOf(
+        1 to "hellor world",
+        2 to "kotlin is awesome",
+        3 to "open chatgbt"
+    )
+
+    val functor = MapFunctor(mutableMap)
+
+    //lansam 2 corutine pt a prelucra map-ul
+    val job1 = launch {
+        functor.map(::addPrefix)
+    }
+
+    val job2 = launch {
+        functor.map(::toPascalCase)
+    }
+
+    //asteptam finalizarea corutinelor
+    job1.join()
+    job2.join()
+
+    println(mutableMap)
+
+}
+
+SV70
+Python: Sa se scrie un program Python utilizandf asyncio si futures care aplica o procesare pipeline asupra elementelor dintr-un dictionar (index, valoare); prima corutina inmulteste elementele cu o constanta, a doua corutina le aduna doua cate doua, iar rezultatul este suprascris in locul primului element din adunare iar a treia corutina inlocuieste cu zero elementele pare din dictionar
+import asyncio
+from asyncio import ensure_future
+from typing import Dict
+
+#corutina de inmultire a numerelor cu o constanta
+
+async def InmultireDict(data:Dict[int,int], const:int)->Dict[int,int]:
+
+    result={}
+
+    async def InmultireElem(key:int, value:int) ->None:
+        await asyncio.sleep(0.1)
+        result[key]=const*value
+
+    futures=[asyncio.ensure_future(InmultireElem(key,value)) for key, value in data.items()]
+
+    await asyncio.gather(*futures)
+
+    return result
+
+#corutina pentru inmultirea numerelor 2 cate 2
+async def AdunareDict(data:Dict[int,int])->Dict[int,int]:
+    result=data.copy()
+    keys=list(result.keys())
+
+    async def adunarePerechi(i:int)->None:
+
+        if i+1<len(keys):
+            await asyncio.sleep(0.1)
+
+            suma=result[keys[i]]+result[keys[i+1]]
+            result[keys[i]]=suma
+
+    futures=[asyncio.ensure_future(adunarePerechi(i)) for i in range(0, len(keys),2)]
+    await asyncio.gather(*futures)
+
+    return result
+
+async def Inlocuire(data:Dict[int, int])->Dict[int, int]:
+    result=data.copy()
+
+    async def Inlocuieste(key: int, value:int)->None:
+        await asyncio.sleep(0.1)
+        if value%2==0:
+            result[key]=0
+
+    futures=[ensure_future(Inlocuieste(key, value)) for key, value in data.items()]
+
+    await asyncio.gather(*futures)
+    return result
+
+async def pipelineDict(data:Dict[int, int], const:int):
+    future1=asyncio.ensure_future(InmultireDict(data,const))
+    future2=asyncio.ensure_future(AdunareDict(await future1))
+    future3=asyncio.ensure_future(Inlocuire(await future2))
+
+    result=await future3
+    return result
+
+async def main():
+    dict={1:2,2:3,3:2,4:8}
+    constant=3
+
+    result =await pipelineDict(dict, constant)
+    print(f"Rezultat:{result}")
+
+    print(f"Dictionarul initial: {dict}")
+    print("Dictionarul dupa inmultirea cu o constanta")
+    d2=await InmultireDict(dict,constant)
+    print(f"Dictionarul dupa inmultire : {d2}")
+    d3=await AdunareDict(d2)
+    print(f"Dictionarul dupa adunare {d3}")
+    result=await Inlocuire(d3)
+    print(f"Dictionarul dupa inlocuire {result}")
+
+
+if __name__=="__main__":
+    asyncio.run(main())
+
+
+
+
+
+
+
+
+
+SV65
+
+Python: Sa se scrie un program Python utiliand multiprocessing care distribuie intr-o maniera ciclica un cuvand dintr-un fisier catre alte trei procese si fiecare din acestea afiseaza numele lui si cuvantul primit la consola. Comunicarea intre procese va fi realizata utilizand cozi.
+
+import multiprocessing
+import time
+
+#FUNCTIE PRIN CARE PROCESELE PRIMESC UN CUVANT
+def worker(nume,queue):
+    while True:
+        word=queue.get()
+
+        if word is None:
+            break
+        print(f"{nume} a primit cuvantul {word}")
+
+        #timp pentru porcesare
+        time.sleep(1)
+
+def main():
+    nrProcese=3
+    procese=[]
+    coada=multiprocessing.Queue()
+
+    # CREARE SI PORNIRE PROCESE
+    for i in range(nrProcese):
+       p=multiprocessing.Process(target=worker,args=(f'Proces-{i+1}', coada))
+       p.start()
+       procese.append(p)
+
+
+    #CITIRE CUVINTE DIN FISIER SI ADAUGARE IN COADA
+    with open('cuvinte.txt','r') as file:
+        words=[line.strip() for line in file]
+
+    #DISTRIBUIRE CUVINTE CATRE PROCESE
+    for i, word in enumerate(words):
+        coada.put(word)
+
+    #OPRIRE PROCESE
+    for _ in range(nrProcese):
+        coada.put(None)
+
+    #TERMINARE PROCESE
+    for p in procese:
+        p.join()
+
+if __name__=='__main__':
+    main()
+
+
+
+
+SV 38
+Kotlin: Utilizandf ADT- uri (eventual lambda) si transformari specifice colectiilor avand la intrare multimea A = {1,2…100}. Sa se scrie un program Kotlin care determina numarul submultimilor cu 4 elemente ale multimii A, care contine elementul 1( componenta numarului)
+fun main() {
+    // Definim multimea A
+    val A = (1..100).toList()
+
+    // Funcție pentru generarea combinațiilor de k elemente
+    fun <T> combinations(input: List<T>, k: Int): List<List<T>> {
+        if (k == 0) return listOf(emptyList())
+        if (input.isEmpty()) return emptyList()
+
+        val head = input.first()
+        val tail = input.drop(1)
+
+        val combsWithHead = combinations(tail, k - 1).map { listOf(head) + it }
+        val combsWithoutHead = combinations(tail, k)
+
+        return combsWithHead + combsWithoutHead
+    }
+
+    // Generăm toate combinațiile de 4 elemente ale lui A
+    val allCombinations = combinations(A, 4)
+
+    // Filtrăm combinațiile care conțin elementul 1
+    val combinationsWithOne = allCombinations.filter { subset -> subset.contains(1) }
+
+    // Afișăm numărul combinațiilor care conțin elementul 1
+    println("Numărul submulțimilor cu 4 elemente care conțin 1: ${combinationsWithOne.size}")
+}
+
+
+
+SV 38
+
+Python: Utilizand tkinter si functii lambda sa se creeze un program Python care va afisa in eticheta ferestrei operatiile realizate cu mouse ul in momentul in care facem un desen simplu (de ex trag un triunghi din linii) pe un canvas din acea fereastra. Programul va avea meniu
+
+
+import tkinter as tk
+from tkinter import messagebox, colorchooser
+
+
+#apelata atunci cand mouse ul este apasat pe canvas
+#de fiecare daca cand vom face click se va conecta mouse ul si se va desena
+def start_draw(event):
+    global start_x, start_y
+    start_x, start_y = event.x, event.y
+    canvas.bind("<B1-Motion>", draw_line)
+
+
+#functia de desenare pe canvas, stabileste culoarea liniei si grosimea acesteia
+def draw_line(event):
+    global start_x, start_y
+    canvas.create_line(start_x, start_y, event.x, event.y, fill=current_color, width=2)
+    # Update the label with the current operation
+    operations_label.config(text=f"Drawing line from ({start_x}, {start_y}) to ({event.x}, {event.y})")
+    start_x, start_y = event.x, event.y
+
+
+#operatie de stergere a canvasului
+def clear_canvas():
+    canvas.delete("all")
+    operations_label.config(text="Canvas cleared")
+
+#fereastra de dialog pentru alegerea culorii
+def choose_color():
+    global current_color
+    color = colorchooser.askcolor()[1]
+    if color:
+        current_color = color
+        color_button.config(bg=current_color)
+
+#informatii despre aplicatie
+def show_about():
+    messagebox.showinfo("About", "This is a simple drawing app using Tkinter.")
+
+# Create the main window
+root = tk.Tk()
+#setare a titlului ferestrei
+root.title("Drawing App")
+
+# Initialize color
+current_color = "black"
+
+# Create a menu
+menu = tk.Menu(root)
+root.config(menu=menu)
+
+file_menu = tk.Menu(menu, tearoff=0)
+#adaugare meniu in cascada/derulant
+menu.add_cascade(label="File", menu=file_menu)
+file_menu.add_command(label="Clear", command=clear_canvas)
+file_menu.add_separator()
+file_menu.add_command(label="Exit", command=root.quit)
+
+help_menu = tk.Menu(menu, tearoff=0)
+menu.add_cascade(label="Help", menu=help_menu)
+help_menu.add_command(label="About", command=show_about)
+
+# Create a canvas and an operations label
+canvas = tk.Canvas(root, width=500, height=400, bg="white")
+canvas.pack(fill=tk.BOTH, expand=True)
+
+operations_label = tk.Label(root, text="Draw something on the canvas", bg="lightgrey")
+operations_label.pack(fill=tk.X)
+
+# Create a color button
+color_button = tk.Button(root, text="Choose Color", command=choose_color, bg=current_color)
+color_button.pack(pady=5)
+
+# Bind the mouse events to the canvas
+canvas.bind("<Button-1>", start_draw)
+
+# Run the application
+root.mainloop()
+
+
+
+SV 44
+Kotlin: Sa se scrie un program Kotlin care avand la intrare doua multimi A si B de cate 15 elemente initializate aleator care vor fi depuse in niste colectii sa se aplice utilizand calcului lambda si operatorii specifici produsul cartezian A x B iar rezultatul la randul lui depus intr-o colectie si aceasta afisata
+package com.pp.laborator
+import kotlin.random.Random
+
+
+fun main() {
+    val A=List(15)
+    {
+        Random.nextInt(1,101)
+    }
+
+    val B=List(15)
+    {
+        Random.nextInt(1,101)
+    }
+
+    println("Multimea A:$A")
+    println("Multimea B:$B")
+
+    println("Produsul cartezian:")
+    val AxB=A.flatMap { a->B.map{b->a to b} }
+    print(AxB)
+}
+
+
+
+SV 44
+Python: Sa se creeze o aplicatir Python pentru rezervarea unei camere de hotel. Camerele (cu atributele si operatorii lor) sunt obiecte si sunt retinute cu un ADT. Cu ajutorul unor decoratori peste functiile de baza se vor implementa un flux suplimentar de tratare a platii urmatorului serviciu suplimentar: consumul din barul camerei cand se genereaza nota de plata. Se vor prezenta si diagramele de clase si obiecte.
+
+
+from functools import wraps
+
+class Camera:
+    def __init__(self, numar, tip, pret):
+        self.numar= numar
+        self.tip= tip
+        self.pret= pret
+        self.bar_consum= 0 #consumul din barul camerei
+
+    def __str__(self):
+        return f"Camera {self.numar}: {self.tip}, pret: {self.pret} RON"
+
+class Rezervare:
+    def __init__(self, camera, nume_client, zile):
+        self.camera= camera
+        self.nume_client = nume_client
+        self.zile= zile
+        self.pret_total = self.calcul_pret_total()
+
+    def calcul_pret_total(self):
+        return self.camera.pret * self.zile + self.camera.bar_consum
+
+    def __str__(self):
+        return f"Rezervare pt {self.nume_client} la {self.camera} pentru {self.zile} zile. Pret Total: {self.calcul_pret_total()} RON"
+
+def cu_bar_decorator(func):
+    @wraps(func)
+    def wrapper(rezervare, *args, **kwargs):
+        #calculam pretul folosind functia originala
+        pret_total = func(rezervare, *args, **kwargs)
+        pret_total += rezervare.camera.bar_consum
+        return pret_total
+    return wrapper
+
+class Rezervare:
+    def __init__(self, camera, nume_client, zile):
+        self.camera= camera
+        self.nume_client= nume_client
+        self.zile= zile
+
+    @cu_bar_decorator
+    def calcul_pret_total(self):
+        return self.camera.preelizs * self.zile
+
+    def __str__(self):
+        return f"Rezervare pentru {self.nume_client} la {self.camera} pentru {self.zile}. Pret total: {self.calcul_pret_total} RON"
+
+
+    #exemplu de utilizare
+    camera = Camera(numar= 101, tip="Single", pret=200)
+    rezervare = Rezervare(camera=camera, nume_client="Ion Popescu", zile=3)
+    camera.bar_consum = 50
+    print(rezervare)
+
+
+
+
+
+SV34
+KOTLIN:Utilizand functiile de procesare in  Kotlin se va prelua un fisier text cu cateva propozitii in el si daca cuvintele au mai mult de 4 litere se vor sterge primele 2, iar daca nu, se va lasa cuv asa cum este. Se va utiliza o combinatie de functii lambda cu functii de procesare.
+
+package com.pp.laborator
+import java.io.File
+
+
+fun main() {
+    val text=File("exemplu.txt").readText()
+
+    val words= text.split("\\s+".toRegex()).filter{it.isNotEmpty()}
+
+    val procesate=words.map{ word->
+        if(word.length>=4)
+        {
+            word.drop(2)
+        }
+        else {
+            word
+        }
+    }
+    println(procesate)
+}
+
+:SV 34
+Python: Sa se scrie un program Python care sa deseneze utilizand tkinter graficul asociat urm secvente de calcul  (nu inteleg ce scrie in cerinta)
+
+
+
+
+
+
+
+
+
+
+
+
+SUBIECT SIMINA
+KOTLIN:Sa se creeze o functie ca o corutina in care sa se faca sumarea 3 numere folosind curry si uncurry
+
+package com.pp.laborator
+import kotlinx.coroutines.*
+
+
+//SUMA CU O FUNCTIE CURRY
+fun curriedSm(a:Int)={ b:Int->{ c:Int ->a+b+c } }
+
+//FUNCTIE CU O SUMA UNCURRY
+fun uncurrySum(a:Int,b:Int,c:Int)=a+b+c
+
+//functie care foloseste curry si uncurry
+suspend fun suma()= coroutineScope {
+    val curried= curriedSm(2)
+    val result=curried(3)(5)
+    print("suma curried este: $result")
+
+    val result2= uncurrySum(2,3,5)
+    print("Suma uncurry este: $result2")
+}
+fun main(args: Array<String>) = runBlocking {
+    suma()
+}
+
+
+Python: Utilizand functii din itertool -Python si un contor tip closure sa se genereze automat nume de fisiere temporare care vor fi create astfel s1-index-s2.tmp unde s1 si s2 sunt nume primite la apelul metodei. Metoda va verifica unde a ramas generatorul si va intoarce urmatorul nume
+import itertools
+
+def file_name_generator(s1,s2):
+    #se creeaza un generator care genereaza un flux de date de la 1
+    counter=itertools.count(1)
+
+    #closure care va genera numele de fisier
+    def generate_name():
+        index=next(counter)
+
+        return f"{s1}-{index}-{s2}.tmp"
+    return generate_name
+if __name__=="__main__":
+    s1="temp"
+    s2="data"
+
+    generate_temp_file_name=file_name_generator(s1,s2)
+
+    print(generate_temp_file_name())
+    print(generate_temp_file_name())
+    print(generate_temp_file_name())
+
+
+SUBIECT CODRINA:
+Kotlin: Utilizand modelul prototip pentru niveluri de semnale [0..5] sa se creeze un program Kotlin care va distribui un mesaj( primit la intrare impreuna cu nivelul lui) pentru a fi tratat(afisat) in zona potrivita ( e.g 5-paznici muzee, 4-politie, 3-sri, 2-sie, 1-csat, 0-nato). Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+//definim interfatA care va fi implementata de toate clasele
+interface MessageHandler {
+    fun handleMessage(mesaj: String, level: Int)
+}
+
+class Nato: MessageHandler {
+    override fun handleMessage(mesaj: String, level: Int) {
+        if( level == 0){
+            print("NATO a receptionat mesajul : $mesaj")
+        }
+    }
+}
+
+class CSAT: MessageHandler{
+    override fun handleMessage(mesaj: String, level: Int) {
+        if ( level == 1){
+            print( "CSAT a receptionat mesajul: $mesaj")
+        }
+    }
+}
+
+class SIE: MessageHandler{
+    override fun handleMessage(mesaj: String, level: Int) {
+        if ( level == 2){
+            print("SIE a receptionat mesajul: $mesaj")
+        }
+    }
+}
+
+class SRI: MessageHandler{
+    override fun handleMessage(mesaj: String, level: Int) {
+        if (level == 3){
+            print("SRI a receptionat mesajul: $mesaj")
+        }
+    }
+}
+
+class Politie: MessageHandler{
+    override fun handleMessage(mesaj: String, level: Int) {
+        if ( level == 4){
+            print("Politia a receptionat mesajul : $mesaj")
+        }
+    }
+}
+
+class PazniciMuzee: MessageHandler{
+    override fun handleMessage(mesaj: String, level: Int) {
+        if ( level == 5){
+            print("Paznicii de muzee au receptionat mesajul: $mesaj")
+        }
+    }
+}
+
+fun main(){
+    val messageHandlers: List< MessageHandler> = listOf(
+    Nato(),
+    CSAT(),
+    SIE(),
+    SRI(),
+        Politie(),
+        PazniciMuzee())
+
+    val level =4
+    val mesaj =" Mesaj"
+
+    for (handler in messageHandlers) {
+        handler.handleMessage(mesaj, level)
+        //fiecare handler este apelat incercand sa gestionam mesajul cu nivelul dat
+    }
+
+}
+
+
+
+
+
+
+Python: Sa se implementeze un program ce va instantia obiecte de tip casetofon simplu, boom casetofon, procasetofon si sa poata fi duplicate. Se vor folosi principiile SOLID
+
+import copy
+from abc import ABC, abstractmethod
+
+class Casetofon(ABC):
+    @abstractmethod
+    def play_music(self):
+        pass
+
+    @abstractmethod
+    def duplicate(self):
+        pass
+
+class CasetofonSimplu(Casetofon):
+    def play_music(self):
+        print("Muzica redata de casetofonul simplu")
+
+    def duplicate(self):
+        return copy.deepcopy(self)
+
+class BoomCasetofon(Casetofon):
+    def play_music(self):
+        print("Muzica redata de BoomCasetofon")
+
+    def duplicate(self):
+        return copy.deepcopy(self)
+
+class ProCasetofon(Casetofon):
+    def play_music(self):
+        print("Muzica redata de ProCasetofon")
+
+    def duplicate(self):
+        return copy.deepcopy(self)
+
+def play_music_from_casetofn(casetofon: Casetofon):
+    casetofon.play_music()
+
+if __name__ == '__main__':
+    casetofon_simplu= CasetofonSimplu()
+    casetofon_boom = BoomCasetofon()
+    casetofon_pro = ProCasetofon()
+
+    casetofon_simplu.play_music()
+    casetofon_pro.play_music()
+    casetofon_boom.play_music()
+
+    cb= casetofon_boom.duplicate()
+    cp= casetofon_pro.duplicate()
+    cs= casetofon_simplu.duplicate()
+
+    print("\n*****")
+
+    cb.play_music()
+    cs.play_music()
+    cp.play_music()
+
+
+
+
+
+
+
+
+
+Subiect restanta2 (ST31)
+Kotlin: Sa se scrie un program Kotlin care preia un fisier text (scris de programator) la intrare organizata cuvintele intr-un arbore binar utilizand o constrangere la alegere iar apoi cu ajutorul unei clase specifice si al functorilor va afisa portiuni din arbore. 
+package com.pp.laborator
+import java.io.File
+
+class BinaryTreeNode(val value:String)
+{
+    var left:BinaryTreeNode?=null
+    var right:BinaryTreeNode?=null
+}
+
+class BinaryTree {
+    var root: BinaryTreeNode? = null
+
+    //inserare
+    fun insert(word: String) {
+        root = insertRecursive(root, word)
+    }
+
+    //inserare recursiva
+    fun insertRecursive(node: BinaryTreeNode?, word: String): BinaryTreeNode {
+        if (node == null) {
+            return BinaryTreeNode(word) // Creăm un nod nou
+        }
+
+        // Constrângere: inserăm ordonat lexicografic
+        if (word < node.value) {
+            node.left = insertRecursive(node.left, word)
+        } else if (word > node.value) {
+            node.right = insertRecursive(node.right, word)
+        }
+        return node
+    }
+
+    //functor
+    fun <R> map(functor: (String) -> R): List<R> {
+        val result = mutableListOf<R>()
+        inOrderTraversal(root, functor, result)
+        return result
+    }
+
+    //TRAVERSARE IN INORDINE
+    private fun <R> inOrderTraversal(node: BinaryTreeNode?, functor: (String) -> R, result: MutableList<R>) {
+        if (node != null) {
+            inOrderTraversal(node.left, functor, result)
+            result.add(functor(node.value))
+            inOrderTraversal(node.right, functor, result)
+        }
+    }
+}
+    fun readWordsFromFile(filePath: String): List<String> {
+        val file = File(filePath)
+        return file.readText()
+            .split("\\s+".toRegex())  // Împarte textul după spații albe
+            .filter { it.isNotEmpty() }  // Filtrează cuvintele goale
+    }
+
+
+fun main() {
+    // Creăm arborele binar
+    val tree = BinaryTree()
+
+    // Citim cuvintele din fișier și le inserăm în arbore
+    val words = readWordsFromFile("fisier.txt")
+    words.forEach { tree.insert(it) }
+
+    // Aplicăm un functor care transformă cuvintele în litere mari și le returnăm
+    val uppercaseWords = tree.map { it.uppercase() }
+
+    // Afișăm cuvintele transformate
+    println("Cuvintele în litere mari din arbore:")
+    uppercaseWords.forEach { println(it) }
+}
+
+Python: Sa se creeze o aplicatir Python pentru rezervarea unei camere de hotel. Camerele (cu atributele si operatorii lor) sunt obiecte si sunt retinute cu un ADT. Cu ajutorul unor decoratori peste functiile de baza se vor implementa un flux suplimentar de tratare a platii urmatorului serviciu suplimentar: consumul din barul camerei cand se genereaza nota de plata. Se vor prezenta si diagramele de clase si obiecte.
+
+
+from functools import wraps
+
+class Camera:
+    def __init__(self, numar, tip, pret):
+        self.numar= numar
+        self.tip= tip
+        self.pret= pret
+        self.bar_consum= 0 #consumul din barul camerei
+
+    def __str__(self):
+        return f"Camera {self.numar}: {self.tip}, pret: {self.pret} RON"
+
+class Rezervare:
+    def __init__(self, camera, nume_client, zile):
+        self.camera= camera
+        self.nume_client = nume_client
+        self.zile= zile
+        self.pret_total = self.calcul_pret_total()
+
+    def calcul_pret_total(self):
+        return self.camera.pret * self.zile + self.camera.bar_consum
+
+    def __str__(self):
+        return f"Rezervare pt {self.nume_client} la {self.camera} pentru {self.zile} zile. Pret Total: {self.calcul_pret_total()} RON"
+
+def cu_bar_decorator(func):
+    @wraps(func)
+    def wrapper(rezervare, *args, **kwargs):
+        #calculam pretul folosind functia originala
+        pret_total = func(rezervare, *args, **kwargs)
+        pret_total += rezervare.camera.bar_consum
+        return pret_total
+    return wrapper
+
+class Rezervare:
+    def __init__(self, camera, nume_client, zile):
+        self.camera= camera
+        self.nume_client= nume_client
+        self.zile= zile
+
+    @cu_bar_decorator
+    def calcul_pret_total(self):
+        return self.camera.preelizs * self.zile
+
+    def __str__(self):
+        return f"Rezervare pentru {self.nume_client} la {self.camera} pentru {self.zile}. Pret total: {self.calcul_pret_total} RON"
+
+
+    #exemplu de utilizare
+    camera = Camera(numar= 101, tip="Single", pret=200)
+    rezervare = Rezervare(camera=camera, nume_client="Ion Popescu", zile=3)
+    camera.bar_consum = 50
+    print(rezervare)
+
+
+Subiect restanta1
+Kotlin: Sa se utilizeze o implementare a interfetei persoana pt o agenta si o clasa utilizator de tip delegat. Programul Kotlin va afisa numele utilizatorului in urma unei cautari prin agenda. Se va desena diagrama UML si se vor explica principiile SOLID.
+interface Persoana {
+    val nume: String
+}
+
+class Agenda( private val persoane: List<Persoana>){
+    fun cautaPersoane(nume:String): Persoana? {
+        return persoane.find {it.nume == nume}
+    }
+}
+
+
+class PersoanaImpl( override val nume: String): Persoana
+
+class Utilizator( persoana: Persoana): Persoana by persoana
+
+fun main(){
+    val Utilizatori = listOf (
+        Utilizator(PersoanaImpl("Ion Popescu")),
+        Utilizator(PersoanaImpl("Maria Ionescu")),
+        Utilizator(PersoanaImpl("George Enescu"))
+    )
+
+    val agenda= Agenda(Utilizatori)
+    val numeCautat= "Maria Ionescu"
+    val rezultat= agenda.cautaPersoane(numeCautat)
+
+    if (rezultat != null){
+        println("Persoana ${rezultat.nume} a fost gasita")
+
+    }else
+    {
+        println("Persoana nu a fost gasita")
+    }
+}
+
+
+
+
+
+SV 26
+Python: Fie inregistrarea = {‘Nume’:Bula;, ‘ Locatia’:{‘Oras’:’Pocreaca’, ‘Tara’:’RO’,} , ‘Gen’:’Feminin’}. Sa se realizeze un program Python care va aplica data flatten peste acest rezultat. 
+def flatten_dict(d, parent_key= '', sep=''):
+    items=[]
+    for k,v in d.items():
+        new_key= parent_key + sep + k if parent_key else k
+        if isinstance(v, dict):
+            items.extend(flatten_dict(v, new_key, sep=sep).items())
+        else:
+            items.append((new_key, v))
+    return dict(items)
+
+inregistrare= {
+    'Nume': 'Bula',
+    'Locatia': {
+        'Oras': 'Pocreaca',
+        'Tara': 'RO',
+    },
+    'Gen': 'Feminin'
+}
+
+flat_inregistrare= flatten_dict(inregistrare)
+
+print(flat_inregistrare)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SV 58
+Kotlin: Utilizand Kotlin si OPP sa se creeze (KBD sau din program) un grup de oameni care pot efectua (cu totii) urmatoarele activitati: mananca, beau, danseaza. Fiecare om este diferit deci functiile vor primi parametri diferiti. Pornind de la urmatoarele declaratii sa se creeze un program care raspunde la intrebari: ion mananca mere, bea bere si danseaza cu femei. Vasile mananca pere, bea vodka si danseaza cu barbati. Alex bea vin mananca prajituri brune si danseaza cu sefii. Exemplu de intrebare: Cu cine poate dansa Vasile si ce poat manca barbatii dar ce pot manca femeile? Se va folisi polimorfismul. Se va desena diagrama UML (clasa si obiecte). Se va explica maniera de aplicare a principiilor SOLID.
+package com.pp.laborator
+
+import com.sun.jndi.dns.DnsName
+
+
+//INTERFATA PENTRU PERSOANA
+class Person(private val mancare:String, private val bautura:String, private val partenerDeDans:DancePartner){
+
+    fun mananca()=mancare
+    fun bea()=bautura
+    fun danseaza()=partenerDeDans
+}
+
+
+//INTERFATA PENTRU TIPUL DE PARTENER DE DANS
+interface DancePartner{
+    fun getTipulPartenerului():String
+}
+
+//PARTENERII DE DANS
+class Femeie:DancePartner{
+    override fun getTipulPartenerului()="femei"
+}
+
+class Barbat:DancePartner{
+    override fun getTipulPartenerului()="barbati"
+}
+
+class Sef:DancePartner{
+    override fun getTipulPartenerului(): String {
+        return "sef"
+    }
+}
+
+
+fun main() {
+    val Ion=Person("mere","bere",Femeie())
+    val Vasile=Person("pere","vodka",Barbat())
+    val Alex=Person("prajituri brune","vin",Sef())
+
+    println("Ion mananca ${Ion.mananca()}, bea ${Ion.bea()} si danseaza cu ${Ion.danseaza()}.")
+    println("Vasile mananca ${Vasile.mananca()}, bea ${Vasile.bea()} si danseaza cu ${Vasile.danseaza()}.")
+    println("Alex mananca ${Alex.mananca()}, bea ${Alex.bea()} si danseaza cu ${Alex.danseaza()}.")
+
+
+    println("INtrebari:")
+    println("Cu cine poate dansa Vasile? ${Vasile.danseaza()}")
+    println("CE pot manca barbatii? ${Vasile.mananca()},${Alex.mananca()},${Ion.mananca()}")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SV 58
+Python: Sa se scrie un program Pyhton ( utilizand threading) care va utiliza subclase active (cu un fir) pentru procesarea simultana a unui hasmap bazata pe functii pure. Clasa de baza va stabili operatiile ( de ex adunare, scadere, inmultire binara pe 16 biti) iar subclasele vor pune la dispozitie obiecte care se executa in fire separate..Se va prezenta diagrama de clase si de obiecte..Se vor utiliza semafoare
+import threading
+import time
+from typing import Dict, Callable
+import operator
+
+class OpDeBaza:
+    def __init__(self,data: Dict[str,int], semafor:threading.Semaphore):
+        self.data=data
+        self.semafor=semafor
+
+    #functie care trebuie implementata de celelalte subclase
+    def execute(self,key1:str,key2:str)->int:
+        raise NotImplementedError("Subclasele trebuie sa implementeze asta")
+
+
+#ADUNARE
+class Adunare(OpDeBaza):
+    def execute(self,key1:str,key2:str) ->int:
+        return self.data[key1]+self.data[key2]
+
+#SCADERE
+class Scadere(OpDeBaza):
+    def execute(self,key1:str,key2:str)->int:
+        if self.data[key1]>self.data[key2]:
+            return self.data[key1]-self.data[key2]
+        else:
+            return self.data[key2]-self.data[key1]
+
+
+#inmultire baza 16
+class Inmultire(OpDeBaza):
+    def execute(self,key1:str,key2:str) ->int:
+        return (self.data[key1]&0xffff)*(self.data[key2]&0xffff)
+
+
+
+#fire de executie
+class Fir(threading.Thread):
+    def __init__(self,operatie:OpDeBaza,key1:str,key2:str):
+        threading.Thread.__init__(self)
+        self.operation=operatie
+        self.key1=key1
+        self.key2=key2
+        self.result=None
+
+    def run(self):
+        with self.operation.semafor:
+            print(f"Threadul {self.name} a inceptut")
+            self.result=self.operation.execute(self.key1,self.key2)
+            print(f"Threadul {self.name} are rezultatul {self.result}")
+
+
+
+def main():
+    data={
+        "a":10,
+        "b":20,
+        "c":30,
+        "d":40
+    }
+
+    semafor = threading.Semaphore(2)
+
+    add_op=Adunare(data,semafor)
+    sub_op=Scadere(data,semafor)
+    mul_op=Inmultire(data,semafor)
+
+    #fire de executie
+    threads=[
+        Fir(add_op,"a","b"),
+        Fir(sub_op, "c", "d"),
+        Fir(mul_op, "a", "c")
+
+    ]
+
+    #pornirea firelor
+    for thread in threads:
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+
+    for thread in threads:
+        print(f"Result from {thread.name}: {thread.result}")
+if __name__=="__main__":
+    main()
+
+
+SV 93
+Kotlin: Sa se scrie un program Kotlin care va utiliza subclase active (cu actori) pt procesarea simultana a unui hashmap bazata. Clasa de baza va stabili operatiile ( de ex adunare, scadere, inmultire, impartire) iar subclasele vor pune la dispozitie obiecte care  executa in fire separate. Se va prezenta diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+package com.pp.laborator
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.actor
+
+
+//CLASA DE BAZA PENTRU OPERATII
+sealed class Operation(val key:String,val value:Int)
+{
+    abstract suspend fun execute(map: HashMap<String,Int>)
+}
+
+//CLASA PENTRU ADUNARE
+class Adunare(key:String, value:Int):Operation(key,value)
+{
+    override suspend fun execute(map:HashMap<String,Int>)
+    {
+        map[key]=(map[key]?:0)+value
+    }
+}
+
+//CLASA PENTRU SCADERE
+class Scadere(key:String,value:Int):Operation(key,value)
+{
+    override suspend fun execute(map: HashMap<String, Int>) {
+        map[key]=(map[key] ?:0)+value
+    }
+}
+
+//INMULTIRE
+class Inmultire(key:String, value:Int):Operation(key,value)
+{
+    override suspend fun execute(map: HashMap<String, Int>) {
+        map[key]=(map[key]?:0)*value
+    }
+}
+
+//IMPARTIRE
+class impartire(key:String,value:Int):Operation(key,value)
+{
+    override suspend fun execute(map: HashMap<String, Int>) {
+        if(value!=0)
+        {
+            map[key]=(map[key]?:0)/value
+        }
+        else
+        {
+            throw IllegalArgumentException("Imparitre la 0")
+        }
+    }
+}
+
+//Creare ACTOR
+fun CoroutineScope.operatioActor(map:HashMap<String,Int>)=actor<Operation> {
+    for (operation in channel)
+    {
+        operation.execute(map)
+    }
+
+}
+
+fun main(args: Array<String>)=runBlocking{
+    val map = HashMap<String, Int>().apply {
+        put("a", 10)  // Valoare inițială pentru cheia "a"
+        put("b", 20)  // Valoare inițială pentru cheia "b"
+    }
+    val actor=operatioActor(map)
+
+    // Trimitem operații către actor
+    actor.send(Adunare("a", 10))
+    actor.send(Scadere("a", 5))
+    actor.send(Inmultire("b", 3))
+    actor.send(impartire("b", 1))
+    actor.send(Adunare("a", 20))
+    //actor.send(impartire("a", 0)) // Aceasta va genera o excepție
+
+    // Așteptăm ca actorul să finalizeze
+    actor.close()
+
+    // Afișăm rezultatul
+    println("Final HashMap: $map")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SV 93
+Python: utilizand modelul prototip sa se deseneze in mod grafic utilizand Python mai multe carucioare identice plasate in diverse pozitii. Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID. 
+import tkinter as tk
+import copy
+from abc import ABC, abstractmethod
+class CaruciorPrototip(ABC):
+    @abstractmethod
+    def clone(self):
+        pass
+
+class Carucior(CaruciorPrototip):
+    def __init__(self,x,y,width=100,height=50):
+        self.x=x
+        self.y=y
+        self.width=width
+        self.height=height
+
+    def clone(self):
+        return copy.deepcopy(self)
+
+
+class Desenator:
+    def __init__(self,canvas):
+        self.canvas=canvas
+
+    def deseneaza(self,carucior):
+        self.canvas.create_rectangle(carucior.x,carucior.y,
+                                     carucior.x+carucior.width,
+                                     carucior.y+carucior.height,
+                                     outline="red",
+                                     fill="")
+
+    def deseneazaCarucioare(self,carucioare):
+        for carucior in carucioare:
+            self.deseneaza(carucior)
+
+
+
+if __name__=="__main__":
+    #fereastra canvas
+    root=tk.Tk()
+    root.title("CARUCIOAREEEE")
+    canvas=tk.Canvas(root,width=400,height=400)
+    canvas.pack()
+
+
+    carucior1=Carucior(50,50)
+    carucior2=carucior1.clone()
+    carucior2.x, carucior2.y=100,100
+    carucior3=carucior1.clone()
+    carucior3.x, carucior3.y=200,150
+
+    desenator=Desenator(canvas)
+    desenator.deseneazaCarucioare([carucior1,carucior2,carucior3])
+    root.mainloop()
+
+
+Kotlin:Utilizand o fabrica abstracta sa se scrie un program Kotlin care permite crearea la cerere a trei obiecte (student, profesor, secretar) acestea la randul lor permit crerea de obiecte specifici (la profesori cream direct prof, conf, sl, as, la student: integralist, restantier si repetent. La secretar avem secretar sef si secretar I si II )
+
+
+package com.pp.laborator
+
+//INTERFATA PENTRU STUDENT
+interface Student{
+    fun getDetails():String
+}
+
+interface Profesor{
+    fun getDetails():String
+}
+
+interface Secretar{
+    fun getDetails():String
+}
+
+//CLASE SPECIFICE PENTRU STUDENTI
+class Repetent:Student{
+    override fun getDetails()="Student Repetent"
+}
+
+class Integralist:Student{
+    override fun getDetails()="Student Integralist"
+}
+
+class Restantier:Student{
+    override fun getDetails()="Student Repetent"
+}
+
+//CLASE SPECIFICE PENTRU PROFESORI
+class Titular:Profesor{
+    override fun getDetails()="Profesor titular"
+}
+
+class Conferentiar:Profesor{
+    override fun getDetails()="Profesor conferentiar"
+}
+
+class SefLucrari:Profesor{
+    override fun getDetails()="Profesor sef de lucrari"
+}
+
+class Asistent:Profesor{
+    override fun getDetails()="Profesor asistent"
+}
+
+//CLASE CONCRETE PENTRU SECRETARI
+class SecretarSef:Secretar{
+    override fun getDetails()="Secretar Sef"
+}
+
+class Secretar1:Secretar{
+    override fun getDetails()="Secretar 1"
+}
+
+class Secretar2:Secretar{
+    override fun getDetails()="Secretar2"
+}
+
+
+//FABRICA ABSTRACTA
+abstract class AbstractFactory{
+    abstract fun createStudent(type: String):Student?
+    abstract fun createProfesor(type:String):Profesor?
+    abstract fun createSecretar(type:String):Secretar?
+}
+
+//IMPLEMENTARE FABRICILOR SPECIFICE
+class StudentFactory:AbstractFactory(){
+    override fun createStudent(type: String): Student?
+    {
+        return when(type){
+            "integralist"->Integralist()
+            "restantier"->Restantier()
+            "repetent"->Repetent()
+            else ->null
+        }
+    }
+
+    override fun createProfesor(type: String): Profesor? {
+        return null
+    }
+
+    override fun createSecretar(type: String): Secretar? {
+        return null
+    }
+}
+
+class ProfesorFactory:AbstractFactory()
+{
+    override fun createProfesor(type: String): Profesor? {
+        return when(type)
+        {
+            "prof"->Titular()
+            "conf"->Conferentiar()
+            "sefLucrari"->SefLucrari()
+            "asistent"->Asistent()
+            else -> null
+        }
+    }
+
+    override fun createSecretar(type: String): Secretar? {
+        return null
+    }
+
+    override fun createStudent(type: String): Student? {
+        return null
+    }
+}
+
+class SecretarFactory:AbstractFactory()
+{
+    override fun createSecretar(type: String): Secretar? {
+        return when (type)
+        {
+            "sef"->SecretarSef()
+            "secretar1"->Secretar1()
+            "secretar2"->Secretar2()
+            else ->null
+        }
+    }
+
+    override fun createStudent(type: String): Student? {
+        return null
+    }
+
+    override fun createProfesor(type: String): Profesor? {
+        return null
+    }
+}
+fun main() {
+    // Creăm instanțe ale fabricilor
+    val studentFactory = StudentFactory()
+    val profesorFactory = ProfesorFactory()
+    val secretarFactory = SecretarFactory()
+
+    // Crearea studenților
+    val student1 = studentFactory.createStudent("integralist")
+    val student2 = studentFactory.createStudent("restantier")
+    val student3 = studentFactory.createStudent("repetent")
+
+    // Crearea profesorilor
+    val profesor1 = profesorFactory.createProfesor("prof")
+    val profesor2 = profesorFactory.createProfesor("conf")
+    val profesor3 = profesorFactory.createProfesor("sefLucrari")
+    val profesor4 = profesorFactory.createProfesor("asistent")
+
+    // Crearea secretarilor
+    val secretar1 = secretarFactory.createSecretar("secretar_sef")
+    val secretar2 = secretarFactory.createSecretar("secretar1")
+    val secretar3 = secretarFactory.createSecretar("secretar2")
+
+    // Afișarea detaliilor
+    println(student1?.getDetails() ?: "Student inexistent")
+    println(student2?.getDetails() ?: "Student inexistent")
+    println(student3?.getDetails() ?: "Student inexistent")
+    println(profesor1?.getDetails() ?: "Profesor inexistent")
+    println(profesor2?.getDetails() ?: "Profesor inexistent")
+    println(profesor3?.getDetails() ?: "Profesor inexistent")
+    println(profesor4?.getDetails() ?: "Profesor inexistent")
+    println(secretar1?.getDetails() ?: "Secretar inexistent")
+    println(secretar2?.getDetails() ?: "Secretar inexistent")
+    println(secretar3?.getDetails() ?: "Secretar inexistent")
+}
+
+
+
+
+Python: Sa se scrie un program Python (utilizand threading) care va utiliza subclase active( cu un fir) pentru procesarea simultana a unui hasmap bazata pe functii pure. Clasa de baza va stabili operatiile (de ex adunare, scadere, inmultire binara pe 16 biti) iar subclasele vor pune la dispozitie obiecte care se executa in fire separate, Se va utiliza rlock().
+import threading
+from threading import RLock
+
+# Clasa de bază care definește operațiile
+class OperationBase(threading.Thread):
+    def __init__(self, hashmap, lock, key1, key2):
+        super().__init__()
+        self.hashmap = hashmap
+        self.lock = lock
+        self.key1 = key1
+        self.key2 = key2
+
+    def run(self):
+        raise NotImplementedError("Subclasele trebuie să implementeze această metodă!")
+
+# Subclasa pentru adunare
+class AdditionOperation(OperationBase):
+    def run(self):
+        with self.lock:
+            # Adunarea valorilor corespunzătoare cheilor key1 și key2
+            result = self.hashmap[self.key1] + self.hashmap[self.key2]
+            print(f"Adunare: {self.hashmap[self.key1]} + {self.hashmap[self.key2]} = {result}")
+
+
+# Subclasa pentru scădere
+class SubtractionOperation(OperationBase):
+    def run(self):
+        with self.lock:
+            # Scăderea valorilor corespunzătoare cheilor key1 și key2
+            result = self.hashmap[self.key1] - self.hashmap[self.key2]
+            print(f"Scădere: {self.hashmap[self.key1]} - {self.hashmap[self.key2]} = {result}")
+
+
+# Subclasa pentru înmulțire binară pe 16 biți
+class MultiplicationOperation(OperationBase):
+    def run(self):
+        with self.lock:
+            # Înmulțirea binară pe 16 biți a valorilor corespunzătoare cheilor key1 și key2
+            result = (self.hashmap[self.key1] * self.hashmap[self.key2]) & 0xFFFF
+            print(f"Înmulțire binară: {self.hashmap[self.key1]} * {self.hashmap[self.key2]} (16 biți) = {result}")
+
+
+# Funcție principală care creează firele de execuție și rulează operațiile
+def main():
+    # Hashmap-ul cu datele pe care lucrăm
+    hashmap = {
+        'a': 10,
+        'b': 20,
+        'c': 15,
+        'd': 5
+    }
+
+    # Creăm un RLock pentru sincronizare
+    lock = RLock()
+
+    # Creăm și pornim firele de execuție pentru operațiile dorite
+    threads = [
+        AdditionOperation(hashmap, lock, 'a', 'b'),
+        SubtractionOperation(hashmap, lock, 'c', 'd'),
+        MultiplicationOperation(hashmap, lock, 'a', 'c')
+    ]
+
+    for thread in threads:
+        thread.start()
+
+    # Așteptăm ca toate firele să termine execuția
+    for thread in threads:
+        thread.join()
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,183 @@
+				SUBIECTE PP
+
+
+SV76
+Kotlin: Utilizand Kotlin si OOP sa se creeze un program care permite modelarea unei sali de laborator cu tot cu operatrii pentru obiecte. Se vor folosi liste mutabile. Se va desena diagrama UML(clase si obiect). Se va explica maniera de aplicare a principiilor SOLID.
+
+SV76
+Python: utilizand modelul pod pot sa se scrue un program Python care va desena in mod grafic un triunghi, un cerc si un dreptunghi. Se vor desena diagrame de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID
+
+SV 81
+Kotlin: Utilizand modelul adaptor sa se freeze un program Kotlin care va primi la intrare diverse tipuri de date simple sau de tip colectie si va realiza scrierea lor intr-un fisier ca o singura operatie care primeste doar obiectul si nume fisier. Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+SV81
+Python: Utilizand modelul comanda sa se scrie in Python un program care pornind de la o clasa student va asigura posibilitatea unor comenzi specifice unui obiect colega care sa conduca la schimbarea starii interne a unui obiect student ( de ex din fericit in disperat). Se vor desena diagrama da clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+SV 86
+Kotlin: Utilizand modelul observtor sa se creeze in pentru un obiect de tip recalculare a pretului, in functie de niste rate de reducere introduse extern de la tastatura ( prin intermediul unui model proxy cu validare de user, parola), un logger (scriere automata in jurnal a operatiilor), care va scrie intr-un fisier separat user si data la care a fost efectuata modificarea de pret si ce modificare a fost realizata) Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID. 
+
+SV86
+Python: Utilizand fabrica de fabrici sa se creeze un program Python care in functie de limba selectata in apel sa intoarca un buton a carui eticheta sa fie in limba selectata la apel si apoi sa fie afisat pe ecran utilizand tkinter. Se vor desena diagrama de clase si de obiecte. Se va explica maniera SOLID.
+
+SV 88
+Kotlin: Sa se creeze un program Kotlin care va utiliza subclase active ( cu mutex si lock) pentru procesarea simultana a unui hasmap bazata. Clsa de baza va stabili operatiile ( de ex adunare, scadere, inmultire sau impartire) iar subclasele vor pune la dispozitie obiecte care se executa in fire separate. Se va prezenta diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+SV88
+Python: Utilizand fabrica de fabrici sa se creeze un program Python care va afisa in functie de apel in mod graficc un patrat un dreptunghi sau un cerc. Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+SV 107
+Kotlin: Sa se scrie un program Kotlin care va crea echivalentul unei bariere ( si apoi va utiliza intr-un exemplu simplu de genul sume de valori dintr-un hasmap realizate pe mai multe fire Java.) Implementarea acestei bariere se va baza pe fire java ( apelate din programul Kotlin) si pe mecanismele wait, notify si notify all.
+
+SV 107
+Python: Utilizand modelul fatada  in cadrul unui program Pyhton sa se creeze un obiect de tip boombox( acesta este compus din metode specifice: play, record, fast foreard, rewind, record, radio, volume, batery status, etc). Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID. 
+
+SV108
+Kotlin: Sa se realizeze un program Kotlin care va aplcia memoizarea generalizata pentru calculul f(i) = f(i -1) + f( i - 2) utilizand concurent hasmap
+
+Sv108
+Python: Utilizand modelul lant de responsabilitati si nivelul de alerta [0..5] sa se creeze un program Python care va distribui un mesaj( primit la intrare impreuna cu nivelul lui) pentru a fi tratat(afisat) in zona potrivita ( e.g 5-paznici muzee, 4-politie, 3-sri, 2-sie, 1-csat, 0-nato). Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+SV 53
+Kotlin: Fie doua colectii cu 100 de numere din submultimile A ={ z N | x =8n - 182n - 9, n  N }  si     B ={ z N | x =9n 2 - 48n + 183n  - 8, n  N }  . Pentru acestea se vor calcula (crea program in Kotlin) utilizand functii de transformare specifice si lambda calcul urmatoarele operatii (AxB)  (B  A) unde  A x B = ((a,b( | a  A   b  B }. Rezultatul este depus intr-un hashmap si acesta va fi afisat
+
+SV 53
+Python: Sa se scrie un program Python ( utilizand threading) care proceseaza simultan utilizand mai multe thread-uri un hashmap X si un dictionar Y cu formula f(x, y) =(x*yi+yi+1) iar rezultatul este depus in yi. Dictionarul are pereche de valoare si index i. Se va utiliza rlock()
+RLock (Reentrant Lock) este un mecanism de sincronizare în Python, folosit pentru a gestiona accesul concurent la resurse partajate, cum ar fi variabile, liste sau dicționare, în contexte multithreading. Spre deosebire de un Lock simplu, un RLock permite unui thread să obțină același "lock" de mai multe ori fără a provoca un blocaj (deadlock).
+
+SV 47
+Kotlin: Pornind de la doua multimi A si B care contin 20 de elemente depuse iin doua colecti separata si tinand cont de A x B= {(a,b) | a  A  b  B} ,  sa se scrie un program Kotlin care va calcula (A x B)  ( B x A) utilizand functii specific colectiilor si eventual lambda calculul urmatoarele. Rezultatul este depus intr-un dictionar iar acesta va fi afisat
+
+SV 47
+Python: Cu ajutorul modelului memento sa se creeze un program Python care va permite aplicarea succesiva a unor functii lambda peste o colectie si apoi va restura obiectele la starea anterioara in  momentul in care acest lucru este cerut la consola
+f1(x) = x+1 (daca x par), altfel f1(x)=x
+f2(x)=3x*x -2*x+1
+f3(x,y)=x+y
+Se vor desena diagrama de clase si obiecte. Se va aplica maniera de aplicare a principiilor SOLID
+
+SV 47
+Python: Utilizand modelul strategie sa se creeze un program Python care sa trateze diferentiat un mesaj de eroare in functie de clasa lui ( 2- warning-> scriu in fisier de warnings, 1-error-> afisez la consola si scriu in fisier de erori comune, 0-critical error-> voi scrie in fisierul de erori grave si voi opri programul.) Se vor utilzia exceptii personalizate crate de programator. Se vor desena diagrama de clase si obiecte. Se va explica maniera de aplicare a principiilor SOLID. 
+
+SV 39
+Kotlin: Fie o multime la intrare A de 100 de elemente pare alese aleator care sunt depuse intr-o colectie. Sa se scrie un program in care se va calcula bn=a12+a22+a32+....an2 ,  n natural, diferit de 0.
+
+SV 39
+Pthon: utilizand tkinter sa se creeze un program Python care permite introducerea datelor unui angajat in companie ( companie, departament, nume, data de nastere, functie si salariu). Pentru introducerea datei de nastere se va folosi un combox pentru selectia lunii. Programul va avea meniu.
+
+SV 33
+Kotlin: Utilizand Kotlin functiile pentru procesare submultimi din se va prelua un fisier text(creat de programator cu cateva propozitii in el) si se vor extrage2 caractere din mijlocul cuvantului daca cuvantul are minim 4 caractere. Se va utiliza combinatie cu lambda peste colectii pentru procesare
+
+SV 33
+Python: Utilizand modelul mediator sa se creeze un program Python care sa permita comunicarea prin mesaje intre niste obiecte de tip furnica (e.g mesaje, mancare, drum bun, pericol, ajutor). Se vor desena diagrama de clase si obiecte. Se va explica maniera de aplicare a principiilor SOLID
+
+SV 32
+Kotlin: Utilizand Kotlin sa se splice un functor peste elementele unui hashmap care va realiza urmatoarele procesari: va aplicaa f(x) = 3x-1 ca lambda, le va transforma in string si va afisa rezultatul
+
+SV 32
+Python: Utilizand functii din itertool -Python si un contor tip closure sa se genereze automat nume de fisiere temporare care vor fi create astfel s1-index-s2.tmp unde s1 si s2 sunt nume primite la apelul metodei. Metoda va verifica unde a ramas generatorul si va intoarce urmatorul nume
+
+PDF_epubPY_JsoupKT
+Python: Utilizand secvente din Python (PyFunctional), corutinele(asyncio) si impartirea in mai multe bucati, sa se elimine dintr-un fisier text rezultat din conversia unui epub ( aveti asa ceva de la o tema ) spatiile multiple, salturile la linie noua. La sfarsit va fi generat noul fisier. Se vor folosi aboradri de tipul impacheteaza-proceseaza-despacheteaza 
+
+PDF_epubPY_JsoupKT
+Kotlin: Sa se creeze in Kotlin un program care sa descarce o pagina HTML< o analizeaza cu modulul Jsoup si salveaza separat toate imaginile grafice din el. Se vor cauta tag-uri de tip ‘img’ si se va extrage valoarea atributului src( sursa imaginii respective), pe baza careia poate fi descarcata imaginea cu cererea GET
+
+PDF_2
+Kotlin: Utilizand functii de extensie sa se scrie in Kotlin un aplicative care aplica intr-o corutina o transformare lambda bazata pe regex care sa elimine dintr-un continut HTML tag-urile ‘script’ si ‘style’ ( si continutul lor, bineinteles). Functia extensie poate fi aplicata unui String, iar aceasta poate filtra continutul HTML
+
+PDF_2
+Python: Cu ajutorul modelului memento sa se creeze un program Python care va permite aplicarea succesiva a unor lambda functii peste o colectie initializata cu date citite dintr-un fisier si apoi va restaura obiectele la starea anterioara in momentul in care acest lucru este cerut ( la consola). Se vor aplica urmatoarele functii:
+-> f1(x)= x+1 (daca x par ), altfel f1(x)=x
+-> f2(x)= 3x*x - 2*x +1
+-> f3(x)= x[i] + x[i+1] , unde i este indexul x-ului primit ca parametru
+Se va desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID
+
+PDF_procesePY_corutineKT
+Python: Utilizand procese Python, sa se creeze un proces care da timestamp-ul la solicitarea unui alt proces care citeste cate un cuvant dintr-un fisier text. Vor exista minim 2 procese care citesc din mai multe fisiere (fiecare proces cate un fisier). Rezultatele sunt depuse intr-un alt ADT de tip dictionar, in care cheia va fi timestamp-ul, iar valoarea va fi cuvantul. Printr-o coada thread-safe, se va transmite ADT-ul creat catre un alt proces care il va prelucra astfel incat sa concateneze cheia si valoarea cu - intre ele, apoi sa separe cuvintele prin virgula si sa le scrie intr-un fisier (CSV).
+
+PDF_procesePY_corutineKT
+Kotlin: Sa se scrie un program Kotlin care va utiliza mai multe corutine ce vor suma cate 2 valori alaturate intr-un hashmap, apoi rezultatele sumarilor vor fi depuse intr-un ADT (comun pt toate corutinele) rezultat. Inainte de afisare,se va utiliza o reimplementare a barierei care se va baza pe corutine si pe mecanisme de tip wait, notify si notify all.
+
+PDF_ProcesareFisProcPY_ProxyKT
+Kotlin: Utilizand fabrica de obiecte sa se scrie un program Kotlin care sa permita crearea unor obiecte de tip student diferentiate de starea lui: integralist, restantier si repetent. La intrare programul va primi un fisier text cu inregistrarile a mai multor studenti( format nume & prenume, grupa, dictionar cu disciplina ca cheie si media finala ca valoare). Regulile de decizie pentru a afisa starea studentului sunt (nici o nota < 5 -integralist, numarul de cazuri cu nota < 5 este intre 2 si 4 -restantier, daca acest nr > 4 atunci studentul este clasificat ca repetent). Pentru cei restantieri si repetenti trebuie sa existe o metoda suplimentara de accesare bazata pe modelul Proxy a datelor dintr-o clasa de date cu verificarea unei parole. Se vor desena diagrame de clase si de obiecte
+
+PDF_ProcesareFisProcPY_ProxyKT
+Python: Dintr-un fisier de minim 50 de valori (numere) se iau cate 10 valori consecutive care vor fi procesate intr-un proces separat ( din multiprocessing, Python) (deci se lanseaza in executie minim 5 procese). Datele sunt depuse intr-un ADT, apoi se va efectua o procesare de tip lambda care va gasi minimul, maximul si media din secventa, apoi va extrage o submultime ce contine numai numerele care se afla in intervalul media + sau - media patratica secventei procesate
+
+PDF_mapReduce_IterTools
+Python: Pornind de la exemplu cu map_reduce din modulul more_itertools(python), sa se calculeze indexul invers pentru un set de document text( creat de student). Toate cele 3 functii (key_func, value_func si reduce_func) vor fi scrise ca expresii lambda. Se va citi continutul fiecarui document si apoi se va sparge si reuni intr-o singura lista de cuvinte
+-> Functia de mapare va returna perechi de forma <word, (document_id, 1)>, im care cheia este cuvantul, iar valoarea este formata din tupla document_id(numele documentului), si 1(o aparitie a cuvantului in document)
+-> Functia de reducere primeste toate perechile, emite o pereche de forma <word, [(document_id_i, count_word_in_document_id_i), (...), …]>, unde al doile element din tupla reprezinta numarul de aparitii ale cuvantului in documentul respectiv. Pentru simplitate, functia de reducere poate uriliza functia reduce_by_key din biblioteca PyFunctional, ca sa creeze acea lista de tuple. Exemplu de output:
+{	‘a’:             [(‘text/1.txt’,1), (‘text/2.txt,2)],
+ 	‘about’:      [(‘text/3.txt’,1)],
+   	‘always’:   [(‘text/3.txt’,1)],
+   	‘are’:         [(text/3.txt’, 2)],
+    	….
+}       
+
+PDF_FunctorKT_decoratorPY
+Python: Utilizand modelul pod(bridge) sa se scrie in Python un program care va porni de la un model mamifer si apoi sa permite instantiere de obiecte de tip om, femeiem caine si pisica. Acestor obiecte li se vor adauga 3-4 functionalitati suplimentare la alegere utlizand decoratorii( de exemplu o functie care descrie/permite interactiunea dintre om si femeie sau om si pisica etc). Se vor desena diagrama si clase de obiecte. Se va eplica maniera de aplicare a principiilor SOLID.
+
+PDF_FunctorKT_decoratorPY
+Kotlin: Sa se creeze in Kotlin un functor (utilizat intr-o corutina) pentru o colectie de tip MutableMap care sa prelucreze valorile. Pentru testare, se vor lansa mai multe corutine pentru procesarea unui MutableMap in care cheile sunt valori intregi, iar valorile sunt string-uri care contin mai multe cuvinte separate prin spatiu. Apelurile functiei map din functor vor prelucra MutableMap-ul astfel incat: primul map va adauga prefixul “Test” la fiecare valoare iar al doilea map va apela functia toPascalCase
+
+SV70
+Python: Sa se scrie un program Python utilizandf asyncio si futures care aplica o procesare pipeline asupra elementelor dintr-un dictionar (index, valoare); prima corutina inmulteste elementele cu o constanta, a doua corutina le aduna doua cate doua, iar rezultatul este suprascris in locul primului element din adunare iar a treia corutina inlocuieste cu zero elementele pare din dictionar
+
+SV65
+Python: Sa se scrie un program Python utiliand multiprocessing care distribuie intr-o maniera ciclica un cuvand dintr-un fisier catre alte trei procese si fiecare din acestea afiseaza numele lui si cuvantul primit la consola. Comunicarea intre procese va fi realizata utilizand cozi.
+
+SV 38
+Kotlin: Utilizandf ADT- uri (eventual lambda) si transformari specifice colectiilor avand la intrare multimea A = {1,2…100}. Sa se scrie un program Kotlin care determina numarul submultimilor cu 4 elemente ale multimii A, care contine elementul 1( componenta numarului)
+
+SV 38
+Python: Utilizand tkinter si functii lambda sa se creeze un program Python care va afisa in eticheta ferestrei operatiile realizate cu mouse ul in momentul in care facem un desen simplu (de ex trag un triunghi din linii) pe un canvas din acea fereastra. Programul va avea meniu
+
+SV 44
+Kotlin: Sa se scrie un program Kotlin care avand la intrare doua multimi A si B de cate 15 elemente initializate aleator care vor fi depuse in niste colectii sa se aplice utilizand calcului lambda si operatorii specifici produsul cartezian A x B iar rezultatul la randul lui depus intr-o colectie si aceasta afisata
+
+SV 44
+Python: Sa se creeze o aplicatir Python pentru rezervarea unei camere de hotel. Camerele (cu atributele si operatorii lor) sunt obiecte si sunt retinute cu un ADT. Cu ajutorul unor decoratori peste functiile de baza se vor implementa un flux suplimentar de tratare a platii urmatorului serviciu suplimentar: consumul din barul camerei cand se genereaza nota de plata. Se vor prezenta si diagramele de clase si obiecte.
+
+SV34
+KOTLIN:Utilizand functiile de procesare in  Kotlin se va prelua un fisier text cu cateva propozitii in el si daca cuvintele au mai mult de 4 litere se vor sterge primele 2, iar daca nu, se va lasa cuv asa cum este. Se va utiliza o combinatie de functii lambda cu functii de procesare.
+
+SV 34
+Python: Sa se scrie un program Python care sa deseneze utilizand tkinter graficul asociat urm secvente de calcul  (nu inteleg ce scrie in cerinta)
+
+SUBIECT SIMINA
+KOTLIN:Sa se creeze o functie ca o corutina in care sa se faca sumarea 3 numere folosind curry si uncurry
+
+Python: Utilizand functii din itertool -Python si un contor tip closure sa se genereze automat nume de fisiere temporare care vor fi create astfel s1-index-s2.tmp unde s1 si s2 sunt nume primite la apelul metodei. Metoda va verifica unde a ramas generatorul si va intoarce urmatorul nume
+import itertools
+
+SUBIECT CODRINA:
+Kotlin: Utilizand modelul prototip pentru niveluri de semnale [0..5] sa se creeze un program Kotlin care va distribui un mesaj( primit la intrare impreuna cu nivelul lui) pentru a fi tratat(afisat) in zona potrivita ( e.g 5-paznici muzee, 4-politie, 3-sri, 2-sie, 1-csat, 0-nato). Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+Python: Sa se implementeze un program ce va instantia obiecte de tip casetofon simplu, boom casetofon, procasetofon si sa poata fi duplicate. Se vor folosi principiile SOLID
+
+Subiect restanta2 (ST31)
+Kotlin: Sa se scrie un program Kotlin care preia un fisier text (scris de programator) la intrare organizata cuvintele intr-un arbore binar utilizand o constrangere la alegere iar apoi cu ajutorul unei clase specifice si al functorilor va afisa portiuni din arbore. 
+
+Python: Sa se creeze o aplicatir Python pentru rezervarea unei camere de hotel. Camerele (cu atributele si operatorii lor) sunt obiecte si sunt retinute cu un ADT. Cu ajutorul unor decoratori peste functiile de baza se vor implementa un flux suplimentar de tratare a platii urmatorului serviciu suplimentar: consumul din barul camerei cand se genereaza nota de plata. Se vor prezenta si diagramele de clase si obiecte.
+
+Subiect restanta1
+Kotlin: Sa se utilizeze o implementare a interfetei persoana pt o agenta si o clasa utilizator de tip delegat. Programul Kotlin va afisa numele utilizatorului in urma unei cautari prin agenda. Se va desena diagrama UML si se vor explica principiile SOLID.
+
+SV 26
+Python: Fie inregistrarea = {‘Nume’:Bula;, ‘ Locatia’:{‘Oras’:’Pocreaca’, ‘Tara’:’RO’,} , ‘Gen’:’Feminin’}. Sa se realizeze un program Python care va aplica data flatten peste acest rezultat. 
+
+SV 58
+Kotlin: Utilizand Kotlin si OPP sa se creeze (KBD sau din program) un grup de oameni care pot efectua (cu totii) urmatoarele activitati: mananca, beau, danseaza. Fiecare om este diferit deci functiile vor primi parametri diferiti. Pornind de la urmatoarele declaratii sa se creeze un program care raspunde la intrebari: ion mananca mere, bea bere si danseaza cu femei. Vasile mananca pere, bea vodka si danseaza cu barbati. Alex bea vin mananca prajituri brune si danseaza cu sefii. Exemplu de intrebare: Cu cine poate dansa Vasile si ce poat manca barbatii dar ce pot manca femeile? Se va folisi polimorfismul. Se va desena diagrama UML (clasa si obiecte). Se va explica maniera de aplicare a principiilor SOLID.
+
+SV 58
+Python: Sa se scrie un program Pyhton ( utilizand threading) care va utiliza subclase active (cu un fir) pentru procesarea simultana a unui hasmap bazata pe functii pure. Clasa de baza va stabili operatiile ( de ex adunare, scadere, inmultire binara pe 16 biti) iar subclasele vor pune la dispozitie obiecte care se executa in fire separate..Se va prezenta diagrama de clase si de obiecte..Se vor utiliza semafoare
+
+SV 93
+Kotlin: Sa se scrie un program Kotlin care va utiliza subclase active (cu actori) pt procesarea simultana a unui hashmap bazata. Clasa de baza va stabili operatiile ( de ex adunare, scadere, inmultire, impartire) iar subclasele vor pune la dispozitie obiecte care  executa in fire separate. Se va prezenta diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID.
+
+SV 93
+Python: utilizand modelul prototip sa se deseneze in mod grafic utilizand Python mai multe carucioare identice plasate in diverse pozitii. Se vor desena diagrama de clase si de obiecte. Se va explica maniera de aplicare a principiilor SOLID. 
+
+Kotlin:Utilizand o fabrica abstracta sa se scrie un program Kotlin care permite crearea la cerere a trei obiecte (student, profesor, secretar) acestea la randul lor permit crerea de obiecte specifici (la profesori cream direct prof, conf, sl, as, la student: integralist, restantier si repetent. La secretar avem secretar sef si secretar I si II )
+
+Python: Sa se scrie un program Python (utilizand threading) care va utiliza subclase active( cu un fir) pentru procesarea simultana a unui hasmap bazata pe functii pure. Clasa de baza va stabili operatiile (de ex adunare, scadere, inmultire binara pe 16 biti) iar subclasele vor pune la dispozitie obiecte care se executa in fire separate, Se va utiliza rlock().
